@@ -1,17 +1,16 @@
-DRAFT, HUMAN TO REWRITE IN OWN WORDS
-
 # CoSearch
 
 CoSearch is an AI-powered natural-language search platform for a coworking marketplace. Users can type plain-language requests (e.g., "quiet place for 4 people in Bandra tomorrow afternoon, under 600 per person per hour, with a whiteboard") and the system interprets hard constraints and soft preferences to return the best-matching, fully grounded results.
 
-<!-- App Screenshot placeholder: add screenshot.png to the repository root to display here -->
-![App Screenshot Placeholder](screenshot.png)
-
 ## Features
-- **Natural Language Parsing**: Understands intent, groups, times, budgets, locations, and soft preferences without complex form UI.
-- **Strict Hard Constraints**: Enforces budgets, availability, capacity, and location accurately via pure code, significantly reducing AI hallucination for critical facts.
-- **Smart Ranking & Fallback**: Ranks listings based on fit, trust, and price. Gracefully relaxes only the constraints permitted by the system rules to show the closest alternatives (`ALTERNATIVES`) if an exact match isn't found, while preserving hard constraints that must never be relaxed (including capacity and explicit space type), or prompts for clarification (`CLARIFY`).
-- **Grounded AI Explanations**: Generates natural-language trade-off explanations strictly validated against mathematical constraints.
+
+- **Natural-Language Parsing:** Understands intent, groups, times, budgets, locations, and soft preferences without complex form UI.
+- **Hard/Soft Constraint Handling:** Differentiates between hard constraints (capacity, location, budget, availability) and soft preferences (noise level, Wi-Fi speed, amenities).
+- **Deterministic Filtering and Ranking:** Enforces constraints mathematically via pure Python code, and ranks using fit, trust (Bayesian average), and price.
+- **Search Outcomes:** Automatically decides between `RESULTS`, `ALTERNATIVES` (relaxing permitted constraints while holding strict limits like capacity), `CLARIFY` (when required fields are missing or location is unsupported), or `NO_MATCH`.
+- **Grounded Explanations:** Generates natural-language trade-off explanations that are independently verified by a code-based validator. Uses exactly one retry followed by a deterministic template fallback on failure.
+- **Results and Map UI:** A clean Streamlit interface displaying top matches and their coordinates.
+- **Synthetic Listing Dataset:** Includes exactly 40 varied synthetic coworking spaces spanning 8 Mumbai areas.
 
 ## Architecture
 
@@ -36,6 +35,10 @@ user query
    ▼
 [app.py / ui/] Streamlit: parsed-request panel, result cards, numbered map
 ```
+
+- **LLM vs Code Split:** The LLM is strictly used to parse the initial messy natural language into structured formats, and phrase computed trade-offs into natural prose. 
+- **Deterministic Logic:** Code does all the filtering, ranking, distance computing, availability checking, and outcome deciding. 
+- **No Hallucinated Listings:** The LLM never decides which listings are valid. It never looks at the database itself to filter. It only formats what the code allows.
 
 ## Local Setup
 
@@ -64,14 +67,16 @@ Start the Streamlit UI:
 streamlit run app.py
 ```
 
-## Testing and Evaluation
+## Testing
 
-**Run Pytests (120 tests):**
+Run the full pytest suite (120 tests):
 ```bash
 python -m pytest
 ```
 
-**Run End-to-End Evaluation:**
+## Evaluation
+
+Run the end-to-end evaluation:
 ```bash
 python eval/run_eval.py
 ```
@@ -80,9 +85,11 @@ The curated 20-query evaluation produced:
 - 20/20 parse correctness
 - 0 hard-constraint violations among RESULTS
 - 0 fabrication failures
-This result applies to the evaluated query set only.
+
+*(Note: This result applies to the evaluated query set only.)*
 
 ## Streamlit Community Cloud Deployment
+
 1. Push this repository to GitHub.
 2. Log into Streamlit Community Cloud and click "New app".
 3. Select this repository and branch. Set the main file path to `app.py`.
@@ -95,9 +102,11 @@ LLM_MODEL = "openai/gpt-oss-20b"
 5. Click **Deploy**.
 
 ## Note on Synthetic Data
+
 All 40 listings provided in `data/listings.json` are entirely synthetic and generated for demonstration purposes. Location coordinates are strictly approximate representations of actual Mumbai areas (e.g. Bandra, BKC, Powai) generated around central coordinates.
 
 ## Limitations
+
 - **Availability is Static:** The platform currently uses recurring weekly static schedules rather than live booking checks.
 - **Coverage:** Only 8 specific Mumbai areas are currently searchable.
 - **Strictly Data-Driven:** The system relies entirely on the provided vocabulary in `src/config.py` and does not guess unstructured features or invent listings outside of the JSON dataset.

@@ -1,5 +1,3 @@
-DRAFT, HUMAN TO REWRITE IN OWN WORDS
-
 # Design Note: Architecture and Scale
 
 ## Overall Approach & Philosophy
@@ -10,7 +8,7 @@ CoSearch embraces a strict split between generative AI (LLMs) and deterministic 
 By assigning math, filtering, and constraint enforcement to code, we provide deterministic mathematical correctness for pricing, party sizes, and geospatial calculations—areas where LLMs can struggle.
 
 ## Hard vs Soft Constraints
-- **Hard Constraints:** Area/Location, Capacity, Total/Per-Person Budget, Time/Date Availability, and Space Type (if explicitly stated). If a listing fails any hard constraint, it is unconditionally removed from standard `RESULTS`.
+- **Hard Constraints:** Area/Location, Capacity, Total/Per-Person Budget, Time/Date Availability, and Space Type (if explicitly stated). If a listing fails any hard constraint, it is unconditionally removed from standard `RESULTS`. For `ALTERNATIVES`, capacity and explicit space type are never relaxed.
 - **Soft Preferences:** Noise level, Wifi speed, and specific Amenities (e.g. whiteboard, coffee machine). These affect the ranking score (`fit`) but never hide a listing.
 
 ## Ranking System
@@ -30,7 +28,7 @@ To mitigate the risk of LLM hallucinations during explanation generation:
 3. If validation fails, a fallback deterministic template (e.g., *"Fits your budget and capacity; trade-off: it lacks a whiteboard"*) is deployed after exactly one retry.
 
 ## Swappable Provider and Plain Python
-Python application logic uses the standard library/Pydantic where appropriate, with Streamlit for UI, Folium/streamlit-folium for maps, the OpenAI-compatible client for LLM calls, and generic LLM environment variables (`LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`) for provider configuration.
+Python application logic uses the standard library/Pydantic where appropriate, with Streamlit for UI, Folium/streamlit-folium for maps, the OpenAI-compatible client for LLM calls, and generic LLM environment variables (`LLM_BASE_URL`, `LLM_API_KEY`, `LLM_MODEL`) for provider configuration. The current chosen project model is `openai/gpt-oss-20b`.
 - **Why no Frameworks?** LangChain, LangGraph, and other agent frameworks introduce opacity, dependency bloat, and unexpected retry logic. Using plain Python provides complete audibility and predictable latency.
 - **Why Groq?** Groq endpoints offer high tokens-per-second, which is well-suited to keeping user-facing search queries under typical web latency expectations.
 
@@ -45,7 +43,7 @@ The main scaling changes should therefore be:
 1. **Database & Spatial Indexing:** Pre-filtering on geographic boxes, hard capacity limits, and pricing.
 2. **Database-side Sorting:** Moving filtering and ranking logic to the database.
 3. **Embeddings & Hybrid Search:** Soft preferences would move from exact matching to vector search to accommodate variations in amenity descriptions across thousands of diverse locations.
-4. **LLM Reranking & Caching:** The LLM would evaluate and rerank only the top 20–50 post-filtered results to maintain latency. Parse outputs would be aggressively cached.
+4. **LLM Reranking & Caching:** The LLM would evaluate and rerank only a small post-filtered candidate set (approximately top 20–50) to maintain latency. Parse outputs would be aggressively cached.
 5. **Batching & Rate Limiting:** High-volume traffic requires request batching and enforced API rate limit management.
 6. **Live Systems:** Integration of a real-time availability service rather than static blocks.
 7. **Continuous Evaluation:** Moving beyond synthetic queries to offline evaluations run on logged real user queries.
