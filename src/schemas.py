@@ -5,7 +5,7 @@ import re
 from enum import Enum
 from typing import Any, Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, field_validator, model_validator
 
 from src import config
 
@@ -123,6 +123,13 @@ class Budget(BaseModel):
     basis: BudgetBasis
 
 
+def _null_to_field_default(value: object, info: ValidationInfo, model: type[BaseModel]) -> object:
+    """Return the field's default when an LLM null arrives (the prompt says "use null when not stated")."""
+    if value is None:
+        return model.model_fields[info.field_name].get_default(call_default_factory=True)
+    return value
+
+
 class SoftPreferences(BaseModel):
     """Soft preferences: affect ranking only, never filtering (Section 6)."""
 
@@ -131,6 +138,12 @@ class SoftPreferences(BaseModel):
     quiet: bool = False
     min_wifi: Literal["fast"] | None = None
     amenities: list[Amenity] = Field(default_factory=list)
+
+    @field_validator("quiet", "amenities", mode="before")
+    @classmethod
+    def _null_to_default(cls, value: object, info: ValidationInfo) -> object:
+        """Tolerate LLM nulls by applying the field's declared default."""
+        return _null_to_field_default(value, info, cls)
 
 
 class Listing(BaseModel):
@@ -205,6 +218,12 @@ class ParsedQuery(BaseModel):
     def _blank_to_none(cls, value: str | None) -> str | None:
         """Treat empty strings as 'not stated'."""
         return None if value == "" else value
+
+    @field_validator("soft", "unmatched_preferences", "unsupported_budget_basis", mode="before")
+    @classmethod
+    def _null_to_default(cls, value: object, info: ValidationInfo) -> object:
+        """Tolerate LLM nulls by applying the field's declared default."""
+        return _null_to_field_default(value, info, cls)
 
     @model_validator(mode="after")
     def _exclusive_location(self) -> Self:

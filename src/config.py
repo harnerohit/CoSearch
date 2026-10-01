@@ -37,6 +37,9 @@ TIME_WINDOWS: dict[str, tuple[str, str]] = {
     "full_day": ("09:00", "18:00"),
 }
 
+# All "today/tomorrow" logic uses this IANA timezone (Section 2; cloud servers run UTC).
+TIMEZONE_NAME = "Asia/Kolkata"
+
 # Availability passes if overlap >= min(MIN_BOOKING_HOURS, requested duration).
 MIN_BOOKING_HOURS = 2
 
@@ -76,6 +79,9 @@ ALT_MAX = 3
 ALT_MAX_DISTANCE_KM = 8
 MAX_QUERY_CHARS = 300
 SESSION_SEARCH_LIMIT = 20
+
+# parser.parse retries this many times on invalid JSON/schema before raising ParseError (Section 9).
+PARSE_MAX_RETRIES = 1
 
 # Facts (Step 5): tradeoff thresholds.
 NEAR_BUDGET_MARGIN_PCT = 15.0  # price within this percent of the limit is a tradeoff.

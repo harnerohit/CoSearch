@@ -472,7 +472,7 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 - [x] Step 4 loader, geo, filters (Gate 4 approved 2026-10-01)
 - [x] Step 5 ranker and facts
 - [x] Step 6 llm client
-- [ ] Step 7 parser
+- [x] Step 7 parser
 - [ ] Step 8 pipeline
 - [ ] Step 9 explainer and validator
 - [ ] Step 10 UI and map
@@ -483,15 +483,16 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 ### Handoff status block (updated at every gate, together with the checklist and commit)
 
 ```
-(1) Status: Steps 0-6 done; Gates 0-6 approved (Gate 6 live smoke: result={'ok': True}, 0.83s).
-(2) Latest commit before this one: a3a2702 step 5b: area alias fix (alias line + test only).
-(3) LLM: model openai/gpt-oss-20b; reasoning_effort low; max_tokens 4096; timeout 30s; SDK max_retries=0.
-(4) LLM retries: 2 for timeout/connection/rate-limit, 1 for invalid/empty/truncated JSON; only LLMError escapes complete_json.
-(5) Ranking approved: W_FIT 0.45, W_TRUST 0.30, W_PRICE 0.25, TRUST_C 20, FAST_WIFI_MBPS 100, MIN_BOOKING_HOURS 2.
-(6) Limits approved: TOP_N 5, ALT_MAX 3, ALT_MAX_DISTANCE_KM 8, MAX_QUERY_CHARS 300, SESSION_SEARCH_LIMIT 20, NEAR_BUDGET_MARGIN_PCT 15, LOW_REVIEW_LIMIT 10.
-(7) Open: Step 8 - bare "Mumbai" must ask a "which area?" question; the coverage message must mention Lower Parel.
-(8) Open: capacity filter only requires capacity >= party size; hot desk capacity 1, no multi-desk booking.
-(9) Open: aliases "bandra east" and "goregaon east" not added; "powai lake" and "lower parel west" left unresolved.
-(10) Open: strict JSON schema works live but is not used (json_object only).
-(11) Tests: .\.venv\Scripts\python.exe -m pytest -> 61 passed (run at this gate). Next: Step 7 parser.
+(1) Status: Steps 0-7 done; Gates 0-7 approved (Gate 7: live smoke, 5 queries, no ParseError/LLMError); awaiting human OK to commit step 7.
+(2) Latest commit before this one: da8756d step 6: llm client with bounded retries and mocked retry tests.
+(3) parser: SYSTEM_PROMPT module constant built from config; Asia/Kolkata date appended per call; user text only in user message; truncate -> complete_json -> time-label and area resolution -> ParsedQuery; one retry then ParseError; LLMError passes through untouched.
+(4) Config constants added with Gate 7 approval: TIMEZONE_NAME = "Asia/Kolkata" and PARSE_MAX_RETRIES = 1 in src/config.py; parser builds TIMEZONE from config.TIMEZONE_NAME; space types still derived from the SpaceType enum (no config constant).
+(5) LLM: openai/gpt-oss-20b; reasoning_effort low; max_tokens 4096; timeout 30s; SDK max_retries=0; only LLMError escapes complete_json.
+(6) Retries: llm.py 2 for timeout/connection/rate-limit and 1 for invalid/empty/truncated JSON; parser adds 1 retry on invalid JSON/schema.
+(7) Ranking/limits approved: W_FIT 0.45, W_TRUST 0.30, W_PRICE 0.25, TRUST_C 20, FAST_WIFI_MBPS 100, MIN_BOOKING_HOURS 2, TOP_N 5, ALT_MAX 3, ALT_MAX_DISTANCE_KM 8, MAX_QUERY_CHARS 300, SESSION_SEARCH_LIMIT 20.
+(8) Open Step 8: bare "Mumbai" -> "which area?" question; coverage message must mention Lower Parel; capacity filter only capacity >= party size; hot desk capacity 1, no multi-desk booking.
+(9) Open: aliases bandra east/goregaon east not added; powai lake/lower parel west unresolved; strict JSON schema works but is not used.
+(10) Tests: .\.venv\Scripts\python.exe -m pytest -> 72 passed (run at this gate). Next: Step 8 pipeline.
+(11) Schemas null-tolerance (Gate 7 approved): null -> default for soft, quiet, amenities, unmatched_preferences, unsupported_budget_basis; Budget and TimeWindow stay strict.
+(12) Open items to check in Step 11 eval: per-day budget live; "desk" -> space_type hot_desk becoming a hard filter.
 ```
