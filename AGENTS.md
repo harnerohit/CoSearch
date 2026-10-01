@@ -193,7 +193,8 @@ CoSearch/                      # parent folder = project root = project name
 │   ├── test_geo.py
 │   ├── test_parser.py
 │   ├── test_validator.py
-│   └── test_pipeline.py
+│   ├── test_pipeline.py
+│   └── test_ui.py             # Step 10: non-network smoke test for Streamlit UI
 │
 └── docs/
     ├── design_note.md
@@ -474,7 +475,7 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 - [x] Step 7 parser
 - [x] Step 8 pipeline
 - [x] Step 9 explainer and validator
-- [ ] Step 10 UI and map
+- [x] Step 10 UI and map
 - [ ] Step 11 Evaluation
 - [ ] Step 12 Documentation
 - [ ] Step 13 Deployment readiness
@@ -482,17 +483,12 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 ### Handoff status block (updated at every gate, together with the checklist and commit)
 
 ```
-(1) Status: Steps 0-9 done; Gate 9 approved NOW.
-(2) Latest commit before this one: 527e57d step 8: pipeline outcomes without explanations, live-verified.
-(3) explainer: batched complete_json, template fallback on LLMError. Invalid explanations get one batched regeneration, then template.
-(4) validator: checks against explicitly allowed numbers, amenity mentions (requiring negation cue if missed), listing name, and budget/noise phrases.
-(5) facts: build_display_data formats plain sentence templates ("Fits your...", "Closest option..."). FIXED bug: price_near_budget tradeoff is now strictly limited to listings that have no budget violation.
-(6) Known gaps: 
-    - Number words (e.g. "two") bypass the number validator.
-    - Amenity checks are keyword-based without full grammar parsing (e.g. negation cue window of 3 preceding words might miss complex phrasing, or falsely trigger).
-    - Negation logic relies on a fixed set of cues ("no", "without", "lacks", "missing", "not", "doesn't have").
-    - Budget and noise checks are keyword-only (paraphrases like "pricey" pass).
-    - LLM inference such as "larger than required" not computed by code.
-(7) Tests: .\.venv\Scripts\python.exe -m pytest -q -> 116 passed (run at Gate 9). Unicode spaces (U+00A0, U+202F) natively supported by Python's re and string split.
-(8) Next step: Step 10 UI and map.
+(1) Status: Steps 0-10 done; Gate 10 approved NOW.
+(2) Latest commit before this one: step 9 explainer and validator.
+(3) UI/Map implemented with st.tabs, components, and map_view.
+(4) Fixed BudgetBasis import in components.py.
+(5) Fixed HTML layout bug (removed 4-space code block rendering bug by ensuring flush-left HTML templates and no newlines in the markdown render).
+(6) Added non-network UI tests (`tests/test_ui.py`) covering standard outcomes and markup escaping.
+(7) Tests: .\.venv\Scripts\python.exe -m pytest -q -> 119 passed.
+(8) Next step: Step 11 Evaluation.
 ```

@@ -151,3 +151,17 @@ NOISE_SYNONYMS = {
     "moderate": ["moderate", "normal", "average"],
     "lively": ["lively", "noisy", "bustling", "vibrant", "active"]
 }
+
+# --- Step 10: UI and Map ---
+UI_EXAMPLE_QUERIES: list[str] = [
+    "Quiet place for 4 people in Bandra tomorrow afternoon, fast wifi, under ₹600 per person per hour, ideally with a whiteboard.",
+    "Meeting room in BKC for 10 people",
+    "Private cabin for 2 in Andheri",
+    "Somewhere nice to work"
+]
+UI_LIMIT_MESSAGE: str = "You've reached the search limit for this demo session."
+UI_MISSING_KEY_MESSAGE: str = "API key missing. Please set LLM_API_KEY in .env or Streamlit secrets."
+UI_FOOTER: str = "Demo data is synthetic."
+UI_ALT_BANNER: str = "No exact match. Closest options:"
+DEFAULT_MAP_CENTER: tuple[float, float] = (19.0760, 72.8777)
+UI_RENDER_ERROR_MESSAGE: str = "An unexpected error occurred while rendering the page. Please try again."
