@@ -153,9 +153,13 @@ def search(query: str) -> SearchResponse:
                 ranked[: config.TOP_N], start=1
             )
         ]
+        from src.explainer import explain_results
+        explain_results(results, parsed, is_alternative=False)
         return _response(Outcome.RESULTS, parsed=parsed, notes=notes, results=results)
     alternatives = _alternatives(parsed, violations)
     if alternatives:
+        from src.explainer import explain_results
+        explain_results(alternatives, parsed, is_alternative=True)
         return _response(
             Outcome.ALTERNATIVES, parsed=parsed, notes=notes, results=alternatives
         )

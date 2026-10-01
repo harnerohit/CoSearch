@@ -16,6 +16,15 @@ FRIDAY = datetime.date(2026, 10, 2)  # a date the headline query matches on real
 COVERED = ", ".join(config.AREAS)
 
 
+@pytest.fixture(autouse=True)
+def no_llm_calls(monkeypatch):
+    """Ensure no real network calls are made by the explainer during pipeline tests."""
+    from src.llm import LLMError
+    def raise_err(*args, **kwargs):
+        raise LLMError("Unmocked LLM call in tests!")
+    monkeypatch.setattr("src.explainer.complete_json", raise_err)
+
+
 @pytest.fixture
 def fake_parse(monkeypatch):
     """Replace parse with a canned recorder (stands in for the one LLM call)."""

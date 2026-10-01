@@ -155,4 +155,4 @@ def test_facts_include_violation_sizes_for_real_listing() -> None:
     assert "budget_over=4.2%" in facts["missed"]
     assert "capacity_short=2" in facts["tradeoffs"]
     assert "budget_over=4.2%" in facts["tradeoffs"]
-    assert "price_near_budget=416.667/400" in facts["tradeoffs"]
+    assert "price_near_budget=416.667/400" not in facts["tradeoffs"]

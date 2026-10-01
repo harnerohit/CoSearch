@@ -122,3 +122,32 @@ NO_MATCH_LOOSEN: dict[str, str] = {
     "time": "try another date or time",
     "space_type": "try a different space type: hot desk, private cabin, or meeting room",
 }
+
+# --- Step 9: Explainer and Validator ---
+AMENITY_SYNONYMS: dict[str, tuple[str, ...]] = {
+    "whiteboard": ("board", "marker board"),
+    "projector": ("beamer", "screen projection"),
+    "video_conferencing": ("zoom", "skype", "vc", "camera"),
+    "printer": ("printing",),
+    "monitor": ("screen", "display", "external monitor"),
+    "standing_desk": ("standup desk", "standing"),
+    "coffee_machine": ("coffee", "espresso", "cafe"),
+    "phone_booth": ("booth", "call room", "private booth"),
+    "locker": ("storage", "safe"),
+    "parking": ("car park", "garage"),
+    "air_conditioning": ("ac", "a/c", "aircon"),
+    "power_backup": ("generator", "ups", "backup"),
+    "pool": ("swimming pool",),
+    "gym": ("fitness",)
+}
+
+
+BUDGET_OVER_PHRASES = ["over budget", "above budget", "exceeds budget"]
+BUDGET_UNDER_PHRASES = ["under budget", "within budget", "meets budget", "on budget"]
+BUDGET_NEAR_PHRASES = ["near budget", "close to budget", "close to the budget limit", "near the budget limit"]
+
+NOISE_SYNONYMS = {
+    "quiet": ["quiet", "silent", "peaceful", "calm"],
+    "moderate": ["moderate", "normal", "average"],
+    "lively": ["lively", "noisy", "bustling", "vibrant", "active"]
+}

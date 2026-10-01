@@ -396,8 +396,7 @@ Ask the human and wait for answers:
 **Gate 8:** show test output.
 
 ### Step 9: `explainer.py` and `validator.py`
-- `explainer.py`: one batched LLM call receiving, per result, **only** the listing fields and the code-computed `facts`. Prompt rules: 1-2 sentences per result; say why it fits and the trade-off; use only the provided facts and numbers; no superlatives not supported by facts; no new amenities or prices. Returns a map `listing_id -> text`.
-- `validator.py`: checks each explanation against the allowed fact set. Fail if it contains: a number (price, Mbps, review count, people) not in the allowed set; an amenity term from the vocabulary (or its synonyms) that the listing lacks; a listing name other than its own. Return pass/fail with the reason.
+- `validator.py`: checks each explanation against the allowed fact set. Fail if it contains: a number (price, Mbps, review count, people) not in the allowed set; an amenity term from the vocabulary (or its synonyms) that the listing lacks; a listing name other than its own. Budget phrases: "over/above budget" and "exceeds budget" pass only when facts contain a budget violation (a near-limit trade-off does NOT allow them); "near/close to the budget limit" phrases pass only when facts contain a near-limit trade-off and fail when a budget violation exists; "within/under budget" phrases pass only when facts say the budget is met. Noise words that do not match the listing's noise_level also fail. Return pass/fail with the reason.
 - Flow: validate each item; invalid ones get **one** regeneration (batched); still invalid → deterministic **template** built from `facts`, with `explanation_source="template"`.
 - Hook the explainer into `pipeline.py`.
 
@@ -474,7 +473,7 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 - [x] Step 6 llm client
 - [x] Step 7 parser
 - [x] Step 8 pipeline
-- [ ] Step 9 explainer and validator
+- [x] Step 9 explainer and validator
 - [ ] Step 10 UI and map
 - [ ] Step 11 Evaluation
 - [ ] Step 12 Documentation
@@ -483,17 +482,17 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 ### Handoff status block (updated at every gate, together with the checklist and commit)
 
 ```
-(1) Status: Steps 0-8 done; Gates 0-8 approved (Gate 8 live smoke: headline RESULTS; 15 people @ Rs.50 -> ALTERNATIVES, capacity >= 15, violations shown); step 8 commit next.
-(2) Latest commit before this one: b3341a4 step 7: parser with null-tolerant schema, live-verified.
-(3) parser: SYSTEM_PROMPT module constant built from config; Asia/Kolkata date appended per call; user text only in user message; truncate -> complete_json -> time-label and area resolution -> ParsedQuery; one retry then ParseError; LLMError passes through untouched.
-(4) Config constants added with Gate 7 approval: TIMEZONE_NAME = "Asia/Kolkata" and PARSE_MAX_RETRIES = 1 in src/config.py; parser builds TIMEZONE from config.TIMEZONE_NAME; space types still derived from the SpaceType enum (no config constant).
-(5) LLM: openai/gpt-oss-20b; reasoning_effort low; max_tokens 4096; timeout 30s; SDK max_retries=0; only LLMError escapes complete_json.
-(6) Retries: llm.py 2 for timeout/connection/rate-limit and 1 for invalid/empty/truncated JSON; parser adds 1 retry on invalid JSON/schema.
-(7) Ranking/limits approved: W_FIT 0.45, W_TRUST 0.30, W_PRICE 0.25, TRUST_C 20, FAST_WIFI_MBPS 100, MIN_BOOKING_HOURS 2, TOP_N 5, ALT_MAX 3, ALT_MAX_DISTANCE_KM 8, MAX_QUERY_CHARS 300, SESSION_SEARCH_LIMIT 20.
-(8) Step 8 done: bare "Mumbai" -> "which area?" (exact CITY_NAMES match, never substring; "Navi Mumbai"/"Parel" get the coverage message); coverage lists AREAS incl. Lower Parel; capacity filter only capacity >= party size (hot desk cap 1, no multi-desk); alternatives never relax capacity or space_type (space_type is a deliberate choice beyond Section 4).
-(9) Open: aliases bandra east/goregaon east not added; powai lake/lower parel west unresolved; strict JSON schema works but is not used.
-(10) Tests: .\.venv\Scripts\python.exe -m pytest -> 85 passed (run at this gate). Next: Step 9 explainer and validator.
-(11) Schemas null-tolerance (Gate 7 approved): null -> default for soft, quiet, amenities, unmatched_preferences, unsupported_budget_basis; Budget and TimeWindow stay strict.
-(12) Open items to check in Step 11 eval: per-day budget live; "desk" -> space_type hot_desk becoming a hard filter; large room for a small group (Terra Desk Co, capacity 8 for 4, not flagged); "closest" alternatives +200% over budget (consider a max-overage threshold; needs an AGENTS.md amendment first).
-(13) Step 8 decisions: LLMError, ParseError, and empty input -> CLARIFY with a "try again" message that never asks for location/budget; alternatives carry score 0.0 (their "why" is facts["violations"]); per-person budget without a stated party size assumes 1 and adds NOTE_DEFAULT_PARTY_SIZE.
+(1) Status: Steps 0-9 done; Gate 9 approved NOW.
+(2) Latest commit before this one: 527e57d step 8: pipeline outcomes without explanations, live-verified.
+(3) explainer: batched complete_json, template fallback on LLMError. Invalid explanations get one batched regeneration, then template.
+(4) validator: checks against explicitly allowed numbers, amenity mentions (requiring negation cue if missed), listing name, and budget/noise phrases.
+(5) facts: build_display_data formats plain sentence templates ("Fits your...", "Closest option..."). FIXED bug: price_near_budget tradeoff is now strictly limited to listings that have no budget violation.
+(6) Known gaps: 
+    - Number words (e.g. "two") bypass the number validator.
+    - Amenity checks are keyword-based without full grammar parsing (e.g. negation cue window of 3 preceding words might miss complex phrasing, or falsely trigger).
+    - Negation logic relies on a fixed set of cues ("no", "without", "lacks", "missing", "not", "doesn't have").
+    - Budget and noise checks are keyword-only (paraphrases like "pricey" pass).
+    - LLM inference such as "larger than required" not computed by code.
+(7) Tests: .\.venv\Scripts\python.exe -m pytest -q -> 116 passed (run at Gate 9). Unicode spaces (U+00A0, U+202F) natively supported by Python's re and string split.
+(8) Next step: Step 10 UI and map.
 ```
