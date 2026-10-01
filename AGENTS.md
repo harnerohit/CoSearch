@@ -227,7 +227,7 @@ No free-text description field (it invites hallucination).
 ### ParsedQuery (LLM output, validated)
 - `location`: str or null, the canonical area name after being matched in code to `config.AREAS` (case-insensitive, alias list in config).
 - `unrecognized_location`: str or null, mutually exclusive with `location`. When the raw text cannot be matched to a covered area, the raw text is kept here; this triggers the `CLARIFY` coverage message.
-- Validation policy (approved): this model uses `extra="ignore"` because it carries LLM output — unknown top-level keys are dropped, while every known field is still strictly validated. All other models use `extra="forbid"`.
+- Validation policy (approved): this model and the nested models that carry LLM output (`budget`, `time_window`, `soft`) use `extra="ignore"` — unknown keys are dropped at any level, while every known field is still strictly validated. Data/UI models (`Listing`, `AvailabilityWindow`, `ResultItem`, `SearchResponse`) use `extra="forbid"`.
 - `party_size`: int or null
 - `budget`: `{amount: int, basis: "per_person_per_hour" | "total_per_hour"}` or null
 - `date`: ISO date or null (LLM receives today's date and weekday from code)

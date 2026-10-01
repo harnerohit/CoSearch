@@ -111,6 +111,17 @@ def test_parsed_query_rejects_bad_amenity() -> None:
         ParsedQuery(**{**VALID_PARSED_QUERY, "soft": {"amenities": ["pool"]}})
 
 
+def test_nested_llm_models_drop_unknown_keys_but_validate_known_fields() -> None:
+    """An unknown key inside `soft` is dropped; a bad value in a known field is rejected."""
+    parsed = ParsedQuery(
+        **{**VALID_PARSED_QUERY, "soft": {"quiet": True, "min_wifi": "fast", "hint": "x"}}
+    )
+    assert parsed.soft.quiet is True
+    assert not hasattr(parsed.soft, "hint")
+    with pytest.raises(ValidationError):
+        ParsedQuery(**{**VALID_PARSED_QUERY, "soft": {"min_wifi": "blazing"}})
+
+
 def test_parsed_query_rejects_bad_time_format() -> None:
     """A time window must be 24-hour HH:MM with end after start."""
     with pytest.raises(ValidationError):

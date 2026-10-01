@@ -71,7 +71,7 @@ def _ensure_end_after_start(start: str, end: str) -> None:
 class TimeWindow(BaseModel):
     """A time window on a single day, 24-hour HH:MM."""
 
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="ignore")
 
     start: str
     end: str
@@ -114,7 +114,7 @@ class AvailabilityWindow(BaseModel):
 class Budget(BaseModel):
     """A hard budget with the basis the user stated (Section 6)."""
 
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="ignore")
 
     amount: int = Field(gt=0)
     basis: BudgetBasis
@@ -123,7 +123,7 @@ class Budget(BaseModel):
 class SoftPreferences(BaseModel):
     """Soft preferences: affect ranking only, never filtering (Section 6)."""
 
-    model_config = ConfigDict(extra="forbid")
+    model_config = ConfigDict(extra="ignore")
 
     quiet: bool = False
     min_wifi: Literal["fast"] | None = None
