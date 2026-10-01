@@ -1,4 +1,4 @@
-import pytest
+﻿import pytest
 from unittest.mock import patch
 from streamlit.testing.v1 import AppTest
 from src.schemas import SearchResponse, Outcome, ParsedQuery, ResultItem, Budget, BudgetBasis, SoftPreferences, SpaceType, TimeWindow
@@ -179,3 +179,55 @@ def test_ui_no_blank_lines_in_html(dummy_env):
                 for i, line in enumerate(lines):
                     # In markdown, a blank line breaks the HTML block
                     assert line.strip() != "", f"Found blank line in HTML at line {i}: {repr(line)}"
+
+def test_ui_render_error_fallback(dummy_env):
+    # If the rendering crashes, it should catch the exception and render the fallback message.
+    # We can simulate a rendering crash by making search() raise an exception.
+    # Wait, search() raising an exception gives MSG_LLM_ERROR.
+    # We want to simulate an exception *during rendering*.
+    # Let's mock render_result_card to raise an Exception.
+    
+    parsed = ParsedQuery(
+        location="Bandra",
+        party_size=4,
+        date=datetime.date(2026, 10, 2),
+        budget=Budget(amount=500, basis=BudgetBasis.PER_PERSON_PER_HOUR),
+        time_window=TimeWindow(start="12:00", end="17:00"),
+        space_type=SpaceType.HOT_DESK,
+        soft=SoftPreferences(quiet=True, min_wifi="fast", amenities=[]),
+        unmatched_preferences=[]
+    )
+    results = [
+        ResultItem(
+            rank=1,
+            listing=load_listings()[0],
+            score=0.9,
+            facts={"matched": ["area"]},
+            explanation="Good fit.",
+            explanation_source="template"
+        )
+    ]
+    
+    with patch("src.pipeline.search") as mock_search, patch("ui.components.render_result_card") as mock_render:
+        mock_search.return_value = SearchResponse(
+            outcome=Outcome.RESULTS,
+            parsed_query=parsed,
+            results=results
+        )
+        mock_render.side_effect = Exception("Simulated rendering crash")
+        
+        at = AppTest.from_file("../app.py")
+        at.run()
+        at.button(key="ex_0").click().run()
+        
+        # Verify it did not bubble up to crash the Streamlit runner
+        assert not at.exception
+        
+        # Verify the fallback message was displayed
+        md_texts = [mkd.value for mkd in at.markdown]
+        # config.UI_RENDER_ERROR_MESSAGE
+        assert any("An unexpected error occurred while rendering" in t for t in md_texts)
+        
+        # Ensure the raw traceback isn't displayed in markdown
+        assert not any("Simulated rendering crash" in t for t in md_texts)
+

@@ -1,4 +1,4 @@
-import streamlit as st
+﻿import streamlit as st
 import folium
 from streamlit_folium import st_folium
 from src import config
@@ -33,4 +33,4 @@ def render_map(results: list[ResultItem]) -> None:
         if bounds:
             m.fit_bounds(bounds)
             
-    st_folium(m, width=700, height=500, returned_objects=[])
+    st_folium(m, use_container_width=True, height=500, returned_objects=[])

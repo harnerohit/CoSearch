@@ -1,4 +1,4 @@
-import os
+﻿import os
 import streamlit as st
 from src import config
 from src.schemas import Outcome, SearchResponse
@@ -6,6 +6,7 @@ from src.pipeline import search
 from src.data_loader import load_listings
 from ui.styles import get_styles
 from ui.components import render_parsed_query, render_result_card, render_message
+
 from ui.map_view import render_map
 
 # Load secrets to os.environ at startup
@@ -29,6 +30,10 @@ def init_session_state():
         st.session_state.last_response = None
     if "search_query" not in st.session_state:
         st.session_state.search_query = ""
+
+def set_query(q: str):
+    st.session_state.search_query = q
+    run_search(q)
 
 def run_search(query: str):
     if not query.strip():
@@ -74,18 +79,19 @@ def main():
     st.title("CoSearch")
     st.write("Natural-language search for coworking spaces in Mumbai.")
     
+    # Search Bar (Side-by-side)
+    col1, col2 = st.columns([5, 1])
+    with col1:
+        query = st.text_input("What are you looking for?", key="search_query", label_visibility="collapsed", placeholder="e.g., Quiet place for 4 people in Bandra tomorrow afternoon...")
+    with col2:
+        if st.button("Search", type="primary", use_container_width=True):
+            run_search(query)
+            
     # Example buttons
-    st.write("Try an example:")
+    st.markdown("<div style='font-size: 0.85em; color: #6c757d; margin-top: 8px;'>Try an example:</div>", unsafe_allow_html=True)
     cols = st.columns(4)
     for i, ex_query in enumerate(config.UI_EXAMPLE_QUERIES):
-        if cols[i].button(ex_query, key=f"ex_{i}"):
-            st.session_state.search_query = ex_query
-            run_search(ex_query)
-            
-    # Search Bar
-    query = st.text_input("What are you looking for?", key="search_query")
-    if st.button("Search", type="primary"):
-        run_search(query)
+        cols[i].button(ex_query, key=f"ex_{i}", on_click=set_query, args=(ex_query,), use_container_width=True)
         
     # Render Output
     response = st.session_state.last_response
@@ -98,13 +104,15 @@ def main():
                 render_parsed_query(response.parsed_query)
                 
             # Clarify / No Match
-            if response.outcome in (Outcome.CLARIFY, Outcome.NO_MATCH):
-                render_message(response.message or "No match found.")
+            if response.outcome == Outcome.CLARIFY:
+                render_message(response.message or "Could you clarify?", msg_type="info")
+            elif response.outcome == Outcome.NO_MATCH:
+                render_message(response.message or "No match found.", msg_type="error")
                 
             # Results / Alternatives
             if response.outcome in (Outcome.RESULTS, Outcome.ALTERNATIVES):
                 if response.outcome == Outcome.ALTERNATIVES:
-                    render_message(response.message or config.UI_ALT_BANNER)
+                    render_message(response.message or config.UI_ALT_BANNER, msg_type="warning")
                 
                 tab1, tab2 = st.tabs(["Results", "Map"])
                 with tab1:
@@ -121,10 +129,14 @@ def main():
         except Exception as e:
             import logging
             logging.error(f"Render exception: {e}", exc_info=True)
-            render_message(config.UI_RENDER_ERROR_MESSAGE)
+            render_message(config.UI_RENDER_ERROR_MESSAGE, msg_type="error")
                 
     st.markdown("---")
     st.markdown(f"<div style='text-align: center; color: #6c757d;'>{config.UI_FOOTER}</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
+
+
+
+
