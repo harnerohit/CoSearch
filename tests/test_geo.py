@@ -24,6 +24,7 @@ def test_resolve_area_uses_aliases() -> None:
     assert resolve_area("bandra kurla complex") == "BKC"
     assert resolve_area("Bandra West") == "Bandra"
     assert resolve_area("andheri west") == "Andheri"
+    assert resolve_area("andheri east") == "Andheri"
 
 
 def test_resolve_area_strips_city_and_punctuation() -> None:

@@ -19,6 +19,7 @@ AREA_ALIASES: dict[str, str] = {
     "bandra kurla": "BKC",
     "bandra west": "Bandra",
     "andheri west": "Andheri",
+    "andheri east": "Andheri",
     "malad west": "Malad",
 }
 
