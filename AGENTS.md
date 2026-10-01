@@ -461,7 +461,7 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 - [x] Step 0 Preflight
 - [x] Step 1 Scaffold and environment
 - [x] Step 2 config and schemas
-- [ ] Step 3 Synthetic data (Gate 3 human approval)
+- [x] Step 3 Synthetic data (Gate 3 human approval)
 - [ ] Step 4 loader, geo, filters
 - [ ] Step 5 ranker and facts
 - [ ] Step 6 llm client
