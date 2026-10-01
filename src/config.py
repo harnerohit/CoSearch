@@ -87,3 +87,5 @@ LLM_TIMEOUT_SECONDS = 30.0
 LLM_MAX_RETRIES = 2  # on timeout or rate limit, with LLM_BACKOFF_SECONDS between tries.
 LLM_JSON_RETRIES = 1  # on invalid JSON or an empty answer.
 LLM_BACKOFF_SECONDS = 2.0  # "short backoff"; exact value chosen here, review at Gate 2/3.
+LLM_REASONING_EFFORT = "low"  # lowest value Groq accepts for gpt-oss (live-verified 2026-10-01).
+LLM_MAX_TOKENS = 4096  # per-answer output cap; reasoning tokens count toward it.

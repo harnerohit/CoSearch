@@ -74,7 +74,7 @@ Graded on: correct hard/soft split, working and reliable pipeline, grounding and
 
 | Purpose | Choice |
 |---|---|
-| Language | Python 3.12 (confirmed in Step 0; venv must be created explicitly with 3.12, not the default 3.14) |
+| Language | Python 3.12 (3.12.13, confirmed in Step 0; venv must be created explicitly with 3.12, not the default 3.14) |
 | LLM provider | Groq via its OpenAI-compatible endpoint, using the `openai` Python package with a configurable `base_url` |
 | Validation / schemas | `pydantic` v2 |
 | Env loading | `python-dotenv` |
@@ -470,8 +470,8 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 - [x] Step 2 config and schemas
 - [x] Step 3 Synthetic data (Gate 3 approved 2026-10-01, weights/thresholds included)
 - [x] Step 4 loader, geo, filters (Gate 4 approved 2026-10-01)
-- [ ] Step 5 ranker and facts
-- [ ] Step 6 llm client
+- [x] Step 5 ranker and facts
+- [x] Step 6 llm client
 - [ ] Step 7 parser
 - [ ] Step 8 pipeline
 - [ ] Step 9 explainer and validator
@@ -483,16 +483,15 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 ### Handoff status block (updated at every gate, together with the checklist and commit)
 
 ```
-(1) Last approved gate: Gate 4; Step 5 done, Gate 5 awaiting reply.
-(2) Latest commit before this one: 99548f1 step 4: data loader, geo, and hard-constraint filters with boundary tests.
-(3) Pending at Gate 5: pytest evidence for test_ranker plus facts tests (45 passed, shown in gate report).
-(4) Decision: Python 3.12 replaces 3.11 (spec amended 2026-10-01).
-(4) Decision: tests/test_schemas.py in Section 5 tree; extra="ignore" on ParsedQuery plus nested budget/time_window/soft.
-(4) Decision: placement — Violations and hhmm_to_minutes in schemas.py; EARTH_RADIUS_KM, NEAR_BUDGET_MARGIN_PCT, LOW_REVIEW_LIMIT in config.py; listing factory in tests/conftest.py.
-(5) Open: LLM JSON-mode and reasoning behaviour unverified until the Step 6 live smoke test.
-(5) Open: a query naming only "Mumbai" (no area) should trigger a which-area question in Step 8, not a coverage rejection.
-(5) Open: "andheri east" and "Parel" do not resolve; alias proposals for the human pending, no change made.
-(6) Tests: .\.venv\Scripts\python.exe -m pytest -> 45 passed (run at this gate).
-(7) Next: Step 6 llm client; gate type: human (Gate 6: API key in .env and model choice).
-(8) Environment: project root E:\CoSearch; Python 3.12.13; venv E:\CoSearch\.venv (.\.venv\Scripts\python.exe).
+(1) Status: Steps 0-6 done; Gates 0-6 approved (Gate 6 live smoke: result={'ok': True}, 0.83s).
+(2) Latest commit before this one: a3a2702 step 5b: area alias fix (alias line + test only).
+(3) LLM: model openai/gpt-oss-20b; reasoning_effort low; max_tokens 4096; timeout 30s; SDK max_retries=0.
+(4) LLM retries: 2 for timeout/connection/rate-limit, 1 for invalid/empty/truncated JSON; only LLMError escapes complete_json.
+(5) Ranking approved: W_FIT 0.45, W_TRUST 0.30, W_PRICE 0.25, TRUST_C 20, FAST_WIFI_MBPS 100, MIN_BOOKING_HOURS 2.
+(6) Limits approved: TOP_N 5, ALT_MAX 3, ALT_MAX_DISTANCE_KM 8, MAX_QUERY_CHARS 300, SESSION_SEARCH_LIMIT 20, NEAR_BUDGET_MARGIN_PCT 15, LOW_REVIEW_LIMIT 10.
+(7) Open: Step 8 - bare "Mumbai" must ask a "which area?" question; the coverage message must mention Lower Parel.
+(8) Open: capacity filter only requires capacity >= party size; hot desk capacity 1, no multi-desk booking.
+(9) Open: aliases "bandra east" and "goregaon east" not added; "powai lake" and "lower parel west" left unresolved.
+(10) Open: strict JSON schema works live but is not used (json_object only).
+(11) Tests: .\.venv\Scripts\python.exe -m pytest -> 61 passed (run at this gate). Next: Step 7 parser.
 ```
