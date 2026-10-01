@@ -173,11 +173,18 @@ class Listing(BaseModel):
             )
         return self
 
+    @model_validator(mode="after")
+    def _check_rating_presence(self) -> Self:
+        """Require rating to be null if and only if review_count is 0."""
+        if (self.rating is None) != (self.review_count == 0):
+            raise ValueError("rating must be null if and only if review_count == 0")
+        return self
+
 
 class ParsedQuery(BaseModel):
     """LLM-parsed query: hard constraints, soft preferences, ambiguity flags (Section 6)."""
 
-    model_config = ConfigDict(extra="forbid", str_strip_whitespace=True)
+    model_config = ConfigDict(extra="ignore", str_strip_whitespace=True)
 
     location: str | None = None
     unrecognized_location: str | None = None

@@ -3,6 +3,7 @@
 import pytest
 from pydantic import ValidationError
 
+from src import config
 from src.schemas import Listing, ParsedQuery
 
 VALID_LISTING = {
@@ -65,12 +66,43 @@ def test_listing_missing_required_field() -> None:
         Listing(**incomplete)
 
 
+def test_listing_rejects_unknown_keys() -> None:
+    """Listing keeps extra='forbid': unknown keys are rejected."""
+    with pytest.raises(ValidationError):
+        Listing(**{**VALID_LISTING, "description": "hi"})
+
+
+def test_rating_is_null_iff_no_reviews() -> None:
+    """rating is null exactly when review_count is 0 (decision 4)."""
+    assert Listing(**{**VALID_LISTING, "rating": None, "review_count": 0}).rating is None
+    assert Listing(**VALID_LISTING).rating == 4.5
+    with pytest.raises(ValidationError):
+        Listing(**{**VALID_LISTING, "rating": None})  # reviews but no rating.
+    with pytest.raises(ValidationError):
+        Listing(**{**VALID_LISTING, "review_count": 0})  # rating but no reviews.
+
+
+def test_max_coord_offset_is_one_hundredth_degree() -> None:
+    """The coordinate offset threshold stays at the approved 0.01 degrees."""
+    assert config.MAX_COORD_OFFSET_DEG == 0.01
+
+
 def test_valid_parsed_query_constructs() -> None:
     """A well-formed parsed query keeps hard and soft parts intact."""
     parsed = ParsedQuery(**VALID_PARSED_QUERY)
     assert parsed.party_size == 4
     assert parsed.budget.amount == 600
     assert parsed.soft.quiet is True
+
+
+def test_parsed_query_ignores_unknown_keys() -> None:
+    """ParsedQuery uses extra='ignore': unknown LLM keys are dropped (decision 3)."""
+    parsed = ParsedQuery(**{**VALID_PARSED_QUERY, "reasoning": "chain of thought"})
+    assert parsed.location == "Bandra"
+    assert not hasattr(parsed, "reasoning")
+    # Known fields are still strictly validated even when extra keys are present.
+    with pytest.raises(ValidationError):
+        ParsedQuery(**{**VALID_PARSED_QUERY, "party_size": 0, "reasoning": "blah"})
 
 
 def test_parsed_query_rejects_bad_amenity() -> None:

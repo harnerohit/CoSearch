@@ -212,20 +212,22 @@ CoSearch/                      # parent folder = project root = project name
 | `space_type` | enum | `hot_desk`, `private_cabin`, `meeting_room` |
 | `area` | str | one of the areas in `config.AREAS` |
 | `address` | str | clearly synthetic, plausible street-level text |
-| `lat`, `lng` | float | area centre plus offset of at most 0.01 degrees |
+| `lat`, `lng` | float | area centre plus offset of at most 0.01 degrees (`config.MAX_COORD_OFFSET_DEG = 0.01`, enforced by a validator) |
 | `capacity` | int | max people the unit holds |
 | `price_per_hour` | int | INR, **total for the whole unit** |
 | `noise_level` | enum | `quiet`, `moderate`, `lively` |
 | `wifi_mbps` | int | |
 | `amenities` | list[enum] | only from `config.AMENITIES` |
-| `rating` | float or null | 1-5, null if no reviews |
+| `rating` | float or null | 1-5; null if and only if `review_count == 0` (cross-field validator) |
 | `review_count` | int | |
 | `availability` | list of `{weekday: 0-6, start: "HH:MM", end: "HH:MM"}` | static **weekly recurring** windows |
 
 No free-text description field (it invites hallucination).
 
 ### ParsedQuery (LLM output, validated)
-- `location`: str or null, which must be matched in code to `config.AREAS` (case-insensitive, alias list in config). Unknown stays as `unrecognized_location` and triggers `CLARIFY` coverage message.
+- `location`: str or null, the canonical area name after being matched in code to `config.AREAS` (case-insensitive, alias list in config).
+- `unrecognized_location`: str or null, mutually exclusive with `location`. When the raw text cannot be matched to a covered area, the raw text is kept here; this triggers the `CLARIFY` coverage message.
+- Validation policy (approved): this model uses `extra="ignore"` because it carries LLM output — unknown top-level keys are dropped, while every known field is still strictly validated. All other models use `extra="forbid"`.
 - `party_size`: int or null
 - `budget`: `{amount: int, basis: "per_person_per_hour" | "total_per_hour"}` or null
 - `date`: ISO date or null (LLM receives today's date and weekday from code)
@@ -236,7 +238,7 @@ No free-text description field (it invites hallucination).
 - `unsupported_budget_basis`: bool, true if user gave a per-day or per-month budget.
 
 ### SearchResponse (pipeline output, the only thing the UI consumes)
-`outcome`, `parsed_query`, `results: list[ResultItem]`, `message: str or null` (clarifying question or no-match text), `notes: list[str]`.
+`outcome`, `parsed_query` (nullable: an LLM failure produces a valid response with `parsed_query = null` and a friendly `message`), `results: list[ResultItem]`, `message: str or null` (clarifying question or no-match text), `notes: list[str]`.
 `ResultItem`: `rank`, `listing`, `score`, `score_breakdown`, `facts`, `explanation`, `explanation_source` (`llm` or `template`).
 
 ---
@@ -253,6 +255,8 @@ Bandra (19.0596, 72.8295), Andheri (19.1197, 72.8468), Powai (19.1176, 72.9060),
 
 **Wifi "fast":** `FAST_WIFI_MBPS = 100`.
 
+**Amenity vocabulary (approved; exactly `config.AMENITIES`, 12 items):** whiteboard, projector, video_conferencing, printer, monitor, standing_desk, coffee_machine, phone_booth, locker, parking, air_conditioning, power_backup. Anything else the user asks for goes to `unmatched_preferences`, never into amenities.
+
 **Ranking** (all in `ranker.py`, weights in config):
 ```
 score = W_FIT * soft_match + W_TRUST * trust + W_PRICE * price_fit
@@ -268,7 +272,9 @@ W_FIT = 0.45   W_TRUST = 0.30   W_PRICE = 0.25
 
 **Limits:** `TOP_N = 5`, `ALT_MAX = 3`, `ALT_MAX_DISTANCE_KM = 8`, `MAX_QUERY_CHARS = 300`, `SESSION_SEARCH_LIMIT = 20` (protects the shared API key on the public app).
 
-**LLM settings:** temperature 0, JSON output, request timeout 30 s (reasoning models can be slower; adjust after measuring in Step 6), max 2 retries on timeout or rate limit with short backoff, one retry on invalid JSON or an empty answer. Explanations are generated in **one batched call** for all results (not one per result). Parsing is one call.
+**LLM settings:** temperature 0, JSON output, request timeout 30 s (reasoning models can be slower; adjust after measuring in Step 6), max 2 retries on timeout or rate limit with short backoff (`LLM_BACKOFF_SECONDS = 2.0`), one retry on invalid JSON or an empty answer. Explanations are generated in **one batched call** for all results (not one per result). Parsing is one call.
+
+**Test command (approved):** run pytest as `python -m pytest` using the project venv's interpreter invoked directly (on this Windows machine: `.\.venv\Scripts\python.exe -m pytest`) from the project root, so `src/` resolves on `sys.path`. Never use activate scripts.
 
 ---
 

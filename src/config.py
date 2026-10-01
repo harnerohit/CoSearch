@@ -40,6 +40,7 @@ MIN_BOOKING_HOURS = 2
 AMENITIES: tuple[str, ...] = (
     "whiteboard",
     "projector",
+    "video_conferencing",
     "printer",
     "monitor",
     "standing_desk",
@@ -48,6 +49,7 @@ AMENITIES: tuple[str, ...] = (
     "locker",
     "parking",
     "air_conditioning",
+    "power_backup",
 )
 
 # "Fast" wifi threshold for soft preferences (Section 7).
