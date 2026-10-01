@@ -139,6 +139,38 @@ def get_styles() -> str:
         margin-bottom: 20px;
     }
 
+            /* Streamlit Tabs Customization */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 24px;
+        margin-bottom: 24px;
+    }
+    .stTabs [data-baseweb="tab"] {
+        padding-top: 16px !important;
+        padding-bottom: 16px !important;
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+        background-color: transparent !important;
+        border-radius: 8px 8px 0 0;
+    }
+    .stTabs [data-baseweb="tab"] p {
+        font-size: 20px !important;
+        font-weight: 700 !important;
+        color: #495057 !important;
+    }
+    .stTabs [aria-selected="true"] {
+        border-bottom: 4px solid #0d6efd !important;
+        background-color: #f8f9fa !important;
+    }
+    .stTabs [aria-selected="true"] p {
+        color: #0d6efd !important;
+    }
+
+        /* Map Container Customization */
+    iframe[title="streamlit_folium.st_folium"] {
+        border: 1px solid #dee2e6 !important;
+        border-radius: 8px !important;
+    }
+
     /* Narrow layout overrides */
     @media (max-width: 600px) {
         .result-card-header {
@@ -151,3 +183,7 @@ def get_styles() -> str:
     }
     </style>
     """)
+
+
+
+
