@@ -452,7 +452,7 @@ Run and report each check:
 Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 3.12, never the default 3.14; AGENTS.md updated from 3.11 on 2026-10-01). OS Windows 11, PowerShell 5.1. Groq key ready, human writes `.env` at Step 6 (never printed). Areas: Mumbai only, the 8 listed, unchanged. Ranking weights: unchanged, final approval at Gate 3. Starting model: `openai/gpt-oss-20b`. Old `B1`-`B6` git history backed up outside the project and repo re-initialized for `step N:` commits.
 
 - [x] Step 0 Preflight
-- [ ] Step 1 Scaffold and environment
+- [x] Step 1 Scaffold and environment
 - [ ] Step 2 config and schemas
 - [ ] Step 3 Synthetic data (Gate 3 human approval)
 - [ ] Step 4 loader, geo, filters
