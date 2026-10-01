@@ -339,6 +339,13 @@ Ask the human and wait for answers:
 **Verify:** `python data/generate_listings.py` runs twice and produces an identical file (determinism); every record validates.
 **Gate 3 (HUMAN):** the human reviews the distribution summary and 8-10 sample records for realism and **approves the ranking weights and thresholds in Section 7**. Apply any requested changes in `config.py` or the generator, regenerate, show the summary again.
 
+**Step 3 record (after Gate 3 revision request, 2026-10-01):**
+- Deviation: `data/generate_listings.py` starts with `sys.path.insert(0, <repo root derived from __file__>)` so the literal command `python data/generate_listings.py` can import `src/` (Python puts the script's directory, not the project root, on `sys.path`). No `os.chdir`, no absolute paths in data.
+- Price model: `price = per-person rate x capacity` (per-type rate bands in the generator), area-skewed (BKC/Lower Parel x1.3, Vashi/Malad x0.75), then clipped into the Section 7 `PRICE_RANGES`. **All three Section 7 ranges hold as written (hot_desk 80-300, private_cabin 400-2000, meeting_room 500-3500); no range change is proposed.**
+- Final price distribution, whole unit, min/median/max per hour: hot_desk 80/197.5/300, private_cabin 442/1407/2000, meeting_room 500/1998/3021. Per person at full capacity: hot_desk 80/197.5/300, private_cabin 153/239/500, meeting_room 86/150/625; **no listing under 50 INR per person** (generator asserts this).
+- Final wifi distribution: `<100 = 14`, `100-199 = 14`, `>=200 = 12`. air_conditioning coverage: 34 of 40 listings (85%).
+- Determinism re-proven: two consecutive runs, identical SHA-256 of `data/listings.json`: `472FCED02489985F6BCFD56A129EC0E68DD103710856C743C57DD4C7D9DE2131`.
+
 ### Step 4: `data_loader.py`, `geo.py`, `filters.py`
 - `data_loader.load_listings()`: loads and validates once; cached by the caller, not here.
 - `geo.py`: `haversine_km`, `area_center(area)`, `resolve_area(text)` (alias aware).
@@ -472,3 +479,18 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 - [ ] Step 11 Evaluation
 - [ ] Step 12 Documentation
 - [ ] Step 13 Deployment readiness
+
+### Handoff status block (updated at every gate, together with the checklist and commit)
+
+```
+(1) Last approved gate: Gate 2 (Step 2); Step 3 revisions done, Gate 3 (human) awaiting approval.
+(2) Latest commit before this one: 52f329c step 3: deterministic 40-listing generator with distribution checks and borderline cases.
+(3) Pending at Gate 3: review of revised summary, 6 samples, price/wifi/aircon numbers, and Section 7 weights.
+(4) Decision: Python 3.12 replaces 3.11 (spec amended 2026-10-01).
+(4) Decision: tests/test_schemas.py added to the Section 5 tree; extra="ignore" on ParsedQuery plus nested budget/time_window/soft.
+(4) Decision: generator uses sys.path.insert bootstrap; price = per-person rate x capacity, clipped to unchanged Section 7 ranges.
+(5) Open: LLM JSON-mode and reasoning behaviour unverified until the Step 6 live smoke test.
+(6) Tests: .\.venv\Scripts\python.exe -m pytest -> 13 passed (run at this gate).
+(7) Next: Step 4 data_loader/geo/filters; gate type: agent-only (Gate 4).
+(8) Environment: project root E:\CoSearch; Python 3.12.13; venv E:\CoSearch\.venv (.\.venv\Scripts\python.exe).
+```

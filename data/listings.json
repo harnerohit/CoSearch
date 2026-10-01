@@ -208,126 +208,127 @@
   },
   {
     "id": "L005",
-    "name": "Marigold Yard",
-    "space_type": "hot_desk",
+    "name": "Drift Desk Co",
+    "space_type": "meeting_room",
     "area": "Bandra",
-    "address": "28 Pebble Court, Bandra",
-    "lat": 19.053,
-    "lng": 72.8373,
-    "capacity": 1,
-    "price_per_hour": 142,
-    "noise_level": "lively",
-    "wifi_mbps": 414,
+    "address": "32 Gulmohar Row, Bandra",
+    "lat": 19.054,
+    "lng": 72.8286,
+    "capacity": 16,
+    "price_per_hour": 2624,
+    "noise_level": "moderate",
+    "wifi_mbps": 310,
     "amenities": [
-      "whiteboard",
-      "video_conferencing",
-      "parking",
-      "monitor"
+      "air_conditioning",
+      "projector"
     ],
-    "rating": 3.6,
-    "review_count": 26,
+    "rating": 4.3,
+    "review_count": 340,
     "availability": [
       {
         "weekday": 0,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 1,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 2,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 3,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 4,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 5,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       }
     ]
   },
   {
     "id": "L006",
-    "name": "Beacon Collective",
+    "name": "Terra Desk Co",
     "space_type": "private_cabin",
     "area": "Bandra",
-    "address": "55 Cobalt Walk, Bandra",
-    "lat": 19.059,
-    "lng": 72.8336,
-    "capacity": 7,
-    "price_per_hour": 1738,
-    "noise_level": "lively",
-    "wifi_mbps": 213,
+    "address": "7 Clover Way, Bandra",
+    "lat": 19.0686,
+    "lng": 72.8355,
+    "capacity": 8,
+    "price_per_hour": 1384,
+    "noise_level": "quiet",
+    "wifi_mbps": 171,
     "amenities": [
+      "whiteboard",
       "video_conferencing",
-      "power_backup"
+      "locker"
     ],
-    "rating": 4.5,
-    "review_count": 218,
+    "rating": 3.5,
+    "review_count": 246,
     "availability": [
       {
         "weekday": 0,
         "start": "09:00",
-        "end": "18:00"
+        "end": "21:00"
       },
       {
         "weekday": 1,
         "start": "09:00",
-        "end": "18:00"
+        "end": "21:00"
       },
       {
         "weekday": 2,
         "start": "09:00",
-        "end": "18:00"
+        "end": "21:00"
       },
       {
         "weekday": 3,
         "start": "09:00",
-        "end": "18:00"
+        "end": "21:00"
       },
       {
         "weekday": 4,
         "start": "09:00",
-        "end": "18:00"
+        "end": "21:00"
       },
       {
         "weekday": 5,
         "start": "09:00",
-        "end": "18:00"
+        "end": "21:00"
+      },
+      {
+        "weekday": 6,
+        "start": "09:00",
+        "end": "21:00"
       }
     ]
   },
   {
     "id": "L007",
-    "name": "Drift Desk Co",
-    "space_type": "hot_desk",
+    "name": "Neem Loft",
+    "space_type": "meeting_room",
     "area": "Andheri",
-    "address": "32 Gulmohar Row, Andheri",
-    "lat": 19.1141,
-    "lng": 72.8459,
-    "capacity": 1,
-    "price_per_hour": 126,
-    "noise_level": "quiet",
-    "wifi_mbps": 154,
+    "address": "116 Neem Lane, Andheri",
+    "lat": 19.1137,
+    "lng": 72.8378,
+    "capacity": 19,
+    "price_per_hour": 3021,
+    "noise_level": "moderate",
+    "wifi_mbps": 342,
     "amenities": [
       "whiteboard",
-      "phone_booth"
+      "air_conditioning",
+      "phone_booth",
+      "locker"
     ],
-    "rating": 4.9,
-    "review_count": 60,
+    "rating": 4.8,
+    "review_count": 131,
     "availability": [
       {
         "weekday": 0,
@@ -363,75 +364,74 @@
   },
   {
     "id": "L008",
-    "name": "Terra Desk Co",
-    "space_type": "hot_desk",
+    "name": "Banyan Corner",
+    "space_type": "private_cabin",
     "area": "Andheri",
-    "address": "7 Clover Way, Andheri",
-    "lat": 19.1287,
-    "lng": 72.8528,
-    "capacity": 1,
-    "price_per_hour": 272,
-    "noise_level": "quiet",
-    "wifi_mbps": 127,
+    "address": "28 Neem Lane, Andheri",
+    "lat": 19.1211,
+    "lng": 72.8476,
+    "capacity": 3,
+    "price_per_hour": 690,
+    "noise_level": "moderate",
+    "wifi_mbps": 37,
     "amenities": [
+      "whiteboard",
+      "air_conditioning",
+      "phone_booth",
+      "parking",
       "locker"
     ],
     "rating": 3.7,
-    "review_count": 137,
+    "review_count": 242,
     "availability": [
       {
         "weekday": 0,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 1,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 2,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 3,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 4,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 5,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       }
     ]
   },
   {
     "id": "L009",
-    "name": "Lantern Studios",
+    "name": "Summit Desk Co",
     "space_type": "hot_desk",
     "area": "Andheri",
-    "address": "49 Neem Lane, Andheri",
-    "lat": 19.1284,
-    "lng": 72.8426,
+    "address": "77 Chiku Street, Andheri",
+    "lat": 19.1229,
+    "lng": 72.842,
     "capacity": 1,
-    "price_per_hour": 153,
-    "noise_level": "lively",
-    "wifi_mbps": 177,
+    "price_per_hour": 110,
+    "noise_level": "quiet",
+    "wifi_mbps": 183,
     "amenities": [
-      "whiteboard",
-      "locker",
+      "air_conditioning",
+      "parking",
       "power_backup",
-      "monitor",
-      "phone_booth"
+      "printer",
+      "projector"
     ],
-    "rating": 4.6,
-    "review_count": 95,
+    "rating": 3.3,
+    "review_count": 309,
     "availability": [
       {
         "weekday": 0,
@@ -467,25 +467,117 @@
   },
   {
     "id": "L010",
-    "name": "Neem Works",
-    "space_type": "private_cabin",
+    "name": "Terrace Den",
+    "space_type": "hot_desk",
     "area": "Andheri",
-    "address": "75 Indigo Path, Andheri",
-    "lat": 19.1205,
-    "lng": 72.8513,
-    "capacity": 2,
-    "price_per_hour": 502,
-    "noise_level": "moderate",
-    "wifi_mbps": 487,
+    "address": "73 Pebble Court, Andheri",
+    "lat": 19.1164,
+    "lng": 72.8425,
+    "capacity": 1,
+    "price_per_hour": 251,
+    "noise_level": "quiet",
+    "wifi_mbps": 312,
     "amenities": [
+      "air_conditioning",
       "power_backup",
-      "locker",
+      "projector"
+    ],
+    "rating": 4.8,
+    "review_count": 301,
+    "availability": [
+      {
+        "weekday": 0,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 1,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 3,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 4,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 5,
+        "start": "09:00",
+        "end": "18:00"
+      }
+    ]
+  },
+  {
+    "id": "L011",
+    "name": "Pine Desk Co",
+    "space_type": "meeting_room",
+    "area": "Andheri",
+    "address": "2 Juniper Rise, Andheri",
+    "lat": 19.1219,
+    "lng": 72.8479,
+    "capacity": 18,
+    "price_per_hour": 2196,
+    "noise_level": "lively",
+    "wifi_mbps": 51,
+    "amenities": [
+      "air_conditioning",
+      "phone_booth",
       "printer",
-      "monitor",
+      "standing_desk"
+    ],
+    "rating": 4.4,
+    "review_count": 132,
+    "availability": [
+      {
+        "weekday": 0,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 2,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 3,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 4,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 5,
+        "start": "09:00",
+        "end": "18:00"
+      }
+    ]
+  },
+  {
+    "id": "L012",
+    "name": "Pixel Corner",
+    "space_type": "meeting_room",
+    "area": "Andheri",
+    "address": "17 Willow Crescent, Andheri",
+    "lat": 19.1266,
+    "lng": 72.8536,
+    "capacity": 10,
+    "price_per_hour": 1570,
+    "noise_level": "quiet",
+    "wifi_mbps": 127,
+    "amenities": [
+      "air_conditioning",
       "parking"
     ],
-    "rating": 3.9,
-    "review_count": 384,
+    "rating": null,
+    "review_count": 0,
     "availability": [
       {
         "weekday": 0,
@@ -520,26 +612,126 @@
     ]
   },
   {
-    "id": "L011",
-    "name": "Summit Desk Co",
-    "space_type": "meeting_room",
-    "area": "Andheri",
-    "address": "77 Chiku Street, Andheri",
-    "lat": 19.1229,
-    "lng": 72.842,
-    "capacity": 7,
-    "price_per_hour": 2833,
+    "id": "L013",
+    "name": "Juniper Studios",
+    "space_type": "hot_desk",
+    "area": "BKC",
+    "address": "34 Chiku Street, BKC",
+    "lat": 19.076,
+    "lng": 72.8744,
+    "capacity": 1,
+    "price_per_hour": 155,
     "noise_level": "lively",
     "wifi_mbps": 33,
     "amenities": [
-      "printer",
-      "projector",
+      "air_conditioning",
+      "standing_desk",
       "parking",
-      "video_conferencing",
-      "phone_booth"
+      "projector",
+      "coffee_machine",
+      "power_backup"
     ],
-    "rating": 4.2,
-    "review_count": 267,
+    "rating": 3.7,
+    "review_count": 234,
+    "availability": [
+      {
+        "weekday": 0,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 1,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 2,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 3,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 4,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 5,
+        "start": "09:00",
+        "end": "18:00"
+      }
+    ]
+  },
+  {
+    "id": "L014",
+    "name": "Onyx Room",
+    "space_type": "private_cabin",
+    "area": "BKC",
+    "address": "63 Maple Terrace, BKC",
+    "lat": 19.0763,
+    "lng": 72.8762,
+    "capacity": 7,
+    "price_per_hour": 1575,
+    "noise_level": "moderate",
+    "wifi_mbps": 125,
+    "amenities": [
+      "whiteboard",
+      "air_conditioning",
+      "coffee_machine",
+      "monitor"
+    ],
+    "rating": 3.7,
+    "review_count": 319,
+    "availability": [
+      {
+        "weekday": 0,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 1,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 2,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 4,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 5,
+        "start": "09:00",
+        "end": "18:00"
+      }
+    ]
+  },
+  {
+    "id": "L015",
+    "name": "Kite Corner",
+    "space_type": "hot_desk",
+    "area": "BKC",
+    "address": "21 Indigo Path, BKC",
+    "lat": 19.068,
+    "lng": 72.8737,
+    "capacity": 1,
+    "price_per_hour": 290,
+    "noise_level": "quiet",
+    "wifi_mbps": 74,
+    "amenities": [
+      "air_conditioning",
+      "projector"
+    ],
+    "rating": 4.3,
+    "review_count": 151,
     "availability": [
       {
         "weekday": 0,
@@ -579,218 +771,24 @@
     ]
   },
   {
-    "id": "L012",
-    "name": "Ember Den",
+    "id": "L016",
+    "name": "Terra Studios",
     "space_type": "meeting_room",
-    "area": "Andheri",
-    "address": "11 Cobalt Walk, Andheri",
-    "lat": 19.1225,
-    "lng": 72.848,
-    "capacity": 14,
-    "price_per_hour": 1568,
+    "area": "BKC",
+    "address": "56 Amaltas Marg, BKC",
+    "lat": 19.0608,
+    "lng": 72.8676,
+    "capacity": 15,
+    "price_per_hour": 2250,
     "noise_level": "quiet",
-    "wifi_mbps": 342,
+    "wifi_mbps": 429,
     "amenities": [
       "air_conditioning",
-      "power_backup"
-    ],
-    "rating": null,
-    "review_count": 0,
-    "availability": [
-      {
-        "weekday": 0,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 1,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 2,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 4,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 5,
-        "start": "09:00",
-        "end": "18:00"
-      }
-    ]
-  },
-  {
-    "id": "L013",
-    "name": "Kite Corner",
-    "space_type": "meeting_room",
-    "area": "BKC",
-    "address": "59 Willow Crescent, BKC",
-    "lat": 19.0767,
-    "lng": 72.8778,
-    "capacity": 4,
-    "price_per_hour": 2938,
-    "noise_level": "moderate",
-    "wifi_mbps": 312,
-    "amenities": [
-      "monitor",
-      "standing_desk",
-      "phone_booth"
-    ],
-    "rating": 3.5,
-    "review_count": 376,
-    "availability": [
-      {
-        "weekday": 0,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 1,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 3,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 4,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 5,
-        "start": "09:00",
-        "end": "18:00"
-      }
-    ]
-  },
-  {
-    "id": "L014",
-    "name": "Sprout Hub",
-    "space_type": "private_cabin",
-    "area": "BKC",
-    "address": "65 Maple Terrace, BKC",
-    "lat": 19.0624,
-    "lng": 72.8673,
-    "capacity": 2,
-    "price_per_hour": 1450,
-    "noise_level": "lively",
-    "wifi_mbps": 34,
-    "amenities": [
-      "video_conferencing"
-    ],
-    "rating": 4.3,
-    "review_count": 298,
-    "availability": [
-      {
-        "weekday": 0,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 1,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 2,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 3,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 4,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 5,
-        "start": "09:00",
-        "end": "18:00"
-      }
-    ]
-  },
-  {
-    "id": "L015",
-    "name": "Terra Corner",
-    "space_type": "private_cabin",
-    "area": "BKC",
-    "address": "120 Clover Way, BKC",
-    "lat": 19.0619,
-    "lng": 72.8768,
-    "capacity": 4,
-    "price_per_hour": 1318,
-    "noise_level": "lively",
-    "wifi_mbps": 203,
-    "amenities": [
-      "whiteboard",
       "parking",
-      "standing_desk",
-      "power_backup",
       "projector"
     ],
-    "rating": 3.8,
-    "review_count": 90,
-    "availability": [
-      {
-        "weekday": 0,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 1,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 2,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 3,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 4,
-        "start": "17:00",
-        "end": "21:00"
-      }
-    ]
-  },
-  {
-    "id": "L016",
-    "name": "Drift Hub",
-    "space_type": "hot_desk",
-    "area": "BKC",
-    "address": "88 Clover Way, BKC",
-    "lat": 19.0754,
-    "lng": 72.8701,
-    "capacity": 1,
-    "price_per_hour": 298,
-    "noise_level": "moderate",
-    "wifi_mbps": 479,
-    "amenities": [
-      "printer",
-      "standing_desk",
-      "air_conditioning",
-      "monitor",
-      "coffee_machine"
-    ],
-    "rating": 4.7,
-    "review_count": 390,
+    "rating": 3.2,
+    "review_count": 48,
     "availability": [
       {
         "weekday": 0,
@@ -826,25 +824,24 @@
   },
   {
     "id": "L017",
-    "name": "Clover Yard",
-    "space_type": "meeting_room",
+    "name": "Terra Loft",
+    "space_type": "private_cabin",
     "area": "BKC",
-    "address": "71 Indigo Path, BKC",
-    "lat": 19.0677,
-    "lng": 72.8612,
-    "capacity": 6,
-    "price_per_hour": 3415,
-    "noise_level": "quiet",
-    "wifi_mbps": 31,
+    "address": "80 Indigo Path, BKC",
+    "lat": 19.0628,
+    "lng": 72.8777,
+    "capacity": 8,
+    "price_per_hour": 1984,
+    "noise_level": "lively",
+    "wifi_mbps": 23,
     "amenities": [
       "whiteboard",
-      "standing_desk",
-      "projector",
       "air_conditioning",
+      "video_conferencing",
       "coffee_machine"
     ],
-    "rating": 3.3,
-    "review_count": 334,
+    "rating": 4.7,
+    "review_count": 117,
     "availability": [
       {
         "weekday": 0,
@@ -853,6 +850,11 @@
       },
       {
         "weekday": 1,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 2,
         "start": "09:00",
         "end": "18:00"
       },
@@ -875,21 +877,25 @@
   },
   {
     "id": "L018",
-    "name": "Terra Studios",
-    "space_type": "meeting_room",
+    "name": "Quartz Corner",
+    "space_type": "private_cabin",
     "area": "BKC",
-    "address": "56 Amaltas Marg, BKC",
-    "lat": 19.0608,
-    "lng": 72.8676,
+    "address": "21 Indigo Path, BKC",
+    "lat": 19.0619,
+    "lng": 72.8767,
     "capacity": 5,
-    "price_per_hour": 2732,
-    "noise_level": "quiet",
-    "wifi_mbps": 374,
+    "price_per_hour": 1755,
+    "noise_level": "lively",
+    "wifi_mbps": 34,
     "amenities": [
-      "coffee_machine"
+      "air_conditioning",
+      "projector",
+      "printer",
+      "coffee_machine",
+      "phone_booth"
     ],
-    "rating": 4.7,
-    "review_count": 9,
+    "rating": 4.9,
+    "review_count": 3,
     "availability": [
       {
         "weekday": 0,
@@ -925,21 +931,25 @@
   },
   {
     "id": "L019",
-    "name": "Terra Loft",
-    "space_type": "hot_desk",
+    "name": "Banyan Loft",
+    "space_type": "private_cabin",
     "area": "Powai",
-    "address": "80 Indigo Path, Powai",
-    "lat": 19.1114,
-    "lng": 72.9137,
-    "capacity": 1,
-    "price_per_hour": 284,
-    "noise_level": "moderate",
-    "wifi_mbps": 95,
+    "address": "43 Maple Terrace, Powai",
+    "lat": 19.1242,
+    "lng": 72.9144,
+    "capacity": 2,
+    "price_per_hour": 442,
+    "noise_level": "lively",
+    "wifi_mbps": 191,
     "amenities": [
-      "coffee_machine"
+      "whiteboard",
+      "air_conditioning",
+      "standing_desk",
+      "monitor",
+      "parking"
     ],
     "rating": 3.6,
-    "review_count": 137,
+    "review_count": 245,
     "availability": [
       {
         "weekday": 0,
@@ -975,22 +985,32 @@
   },
   {
     "id": "L020",
-    "name": "Drift Loft",
+    "name": "Summit Den",
     "space_type": "meeting_room",
     "area": "Powai",
-    "address": "103 Clover Way, Powai",
-    "lat": 19.1242,
-    "lng": 72.9116,
+    "address": "34 Neem Lane, Powai",
+    "lat": 19.1106,
+    "lng": 72.9048,
     "capacity": 12,
-    "price_per_hour": 1152,
+    "price_per_hour": 1800,
     "noise_level": "lively",
-    "wifi_mbps": 310,
+    "wifi_mbps": 55,
     "amenities": [
-      "printer"
+      "whiteboard",
+      "air_conditioning",
+      "parking",
+      "coffee_machine",
+      "projector",
+      "locker"
     ],
-    "rating": 4.6,
-    "review_count": 221,
+    "rating": 3.8,
+    "review_count": 270,
     "availability": [
+      {
+        "weekday": 0,
+        "start": "09:00",
+        "end": "18:00"
+      },
       {
         "weekday": 1,
         "start": "09:00",
@@ -1020,71 +1040,69 @@
   },
   {
     "id": "L021",
-    "name": "Harbor Collective",
-    "space_type": "meeting_room",
+    "name": "Onyx Works",
+    "space_type": "hot_desk",
     "area": "Powai",
-    "address": "40 Gulmohar Row, Powai",
-    "lat": 19.1126,
-    "lng": 72.9089,
-    "capacity": 16,
-    "price_per_hour": 1844,
+    "address": "91 Cobalt Walk, Powai",
+    "lat": 19.1086,
+    "lng": 72.9137,
+    "capacity": 1,
+    "price_per_hour": 217,
     "noise_level": "lively",
-    "wifi_mbps": 103,
+    "wifi_mbps": 129,
     "amenities": [
-      "projector",
-      "locker",
-      "monitor",
-      "parking"
+      "air_conditioning",
+      "phone_booth"
     ],
-    "rating": 4.5,
-    "review_count": 65,
+    "rating": 3.9,
+    "review_count": 271,
     "availability": [
       {
         "weekday": 0,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 1,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 2,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 3,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
-        "weekday": 5,
-        "start": "09:00",
-        "end": "18:00"
+        "weekday": 4,
+        "start": "17:00",
+        "end": "21:00"
       }
     ]
   },
   {
     "id": "L022",
-    "name": "Sprout Collective",
+    "name": "Drift Den",
     "space_type": "meeting_room",
     "area": "Powai",
-    "address": "4 Chiku Street, Powai",
-    "lat": 19.1244,
-    "lng": 72.9017,
-    "capacity": 12,
-    "price_per_hour": 656,
-    "noise_level": "lively",
-    "wifi_mbps": 279,
+    "address": "41 Clover Way, Powai",
+    "lat": 19.1239,
+    "lng": 72.91,
+    "capacity": 6,
+    "price_per_hour": 888,
+    "noise_level": "moderate",
+    "wifi_mbps": 374,
     "amenities": [
+      "air_conditioning",
       "coffee_machine",
-      "parking",
       "phone_booth"
     ],
-    "rating": 3.7,
-    "review_count": 45,
+    "rating": 4.4,
+    "review_count": 389,
     "availability": [
       {
         "weekday": 0,
@@ -1120,24 +1138,25 @@
   },
   {
     "id": "L023",
-    "name": "Pebble Loft",
+    "name": "Loop Studios",
     "space_type": "hot_desk",
     "area": "Powai",
-    "address": "116 Kite Lane, Powai",
-    "lat": 19.112,
-    "lng": 72.8978,
+    "address": "79 Kite Lane, Powai",
+    "lat": 19.114,
+    "lng": 72.9069,
     "capacity": 1,
     "price_per_hour": 80,
-    "noise_level": "lively",
-    "wifi_mbps": 111,
+    "noise_level": "moderate",
+    "wifi_mbps": 48,
     "amenities": [
-      "whiteboard",
+      "air_conditioning",
       "coffee_machine",
       "phone_booth",
-      "parking"
+      "standing_desk",
+      "locker"
     ],
-    "rating": 3.4,
-    "review_count": 232,
+    "rating": 4.1,
+    "review_count": 351,
     "availability": [
       {
         "weekday": 0,
@@ -1173,22 +1192,25 @@
   },
   {
     "id": "L024",
-    "name": "Mosaic Collective",
+    "name": "Neem Room",
     "space_type": "private_cabin",
     "area": "Lower Parel",
-    "address": "80 Willow Crescent, Lower Parel",
-    "lat": 19.0029,
-    "lng": 72.8232,
-    "capacity": 4,
-    "price_per_hour": 1719,
+    "address": "61 Indigo Path, Lower Parel",
+    "lat": 18.9941,
+    "lng": 72.8225,
+    "capacity": 5,
+    "price_per_hour": 1825,
     "noise_level": "lively",
-    "wifi_mbps": 37,
+    "wifi_mbps": 281,
     "amenities": [
+      "air_conditioning",
+      "power_backup",
       "coffee_machine",
-      "phone_booth"
+      "locker",
+      "monitor"
     ],
-    "rating": 4.1,
-    "review_count": 285,
+    "rating": 3.7,
+    "review_count": 117,
     "availability": [
       {
         "weekday": 0,
@@ -1224,24 +1246,23 @@
   },
   {
     "id": "L025",
-    "name": "Kite Hub",
-    "space_type": "private_cabin",
+    "name": "Banyan Studios",
+    "space_type": "hot_desk",
     "area": "Lower Parel",
-    "address": "54 Clover Way, Lower Parel",
-    "lat": 19.0079,
-    "lng": 72.8332,
-    "capacity": 3,
-    "price_per_hour": 1830,
+    "address": "4 Neem Lane, Lower Parel",
+    "lat": 18.9954,
+    "lng": 72.8296,
+    "capacity": 1,
+    "price_per_hour": 300,
     "noise_level": "quiet",
-    "wifi_mbps": 301,
+    "wifi_mbps": 24,
     "amenities": [
-      "whiteboard",
-      "phone_booth",
-      "standing_desk",
-      "parking"
+      "video_conferencing",
+      "monitor",
+      "standing_desk"
     ],
-    "rating": 3.7,
-    "review_count": 219,
+    "rating": 4.3,
+    "review_count": 327,
     "availability": [
       {
         "weekday": 0,
@@ -1277,26 +1298,25 @@
   },
   {
     "id": "L026",
-    "name": "Pine Yard",
-    "space_type": "hot_desk",
+    "name": "Quartz Studios",
+    "space_type": "private_cabin",
     "area": "Lower Parel",
-    "address": "57 Juniper Rise, Lower Parel",
-    "lat": 19.0032,
-    "lng": 72.8302,
-    "capacity": 1,
-    "price_per_hour": 274,
-    "noise_level": "lively",
-    "wifi_mbps": 416,
+    "address": "84 Indigo Path, Lower Parel",
+    "lat": 18.9911,
+    "lng": 72.8345,
+    "capacity": 5,
+    "price_per_hour": 1150,
+    "noise_level": "moderate",
+    "wifi_mbps": 23,
     "amenities": [
-      "whiteboard",
-      "projector",
-      "standing_desk",
       "air_conditioning",
+      "power_backup",
       "monitor",
-      "locker"
+      "phone_booth",
+      "parking"
     ],
-    "rating": 4.2,
-    "review_count": 7,
+    "rating": 4.5,
+    "review_count": 8,
     "availability": [
       {
         "weekday": 0,
@@ -1304,7 +1324,7 @@
         "end": "18:00"
       },
       {
-        "weekday": 2,
+        "weekday": 1,
         "start": "09:00",
         "end": "18:00"
       },
@@ -1327,74 +1347,23 @@
   },
   {
     "id": "L027",
-    "name": "Banyan Studios",
-    "space_type": "meeting_room",
+    "name": "Terra Hub",
+    "space_type": "private_cabin",
     "area": "Lower Parel",
-    "address": "4 Neem Lane, Lower Parel",
-    "lat": 18.9954,
-    "lng": 72.8296,
-    "capacity": 6,
-    "price_per_hour": 2932,
-    "noise_level": "moderate",
-    "wifi_mbps": 51,
-    "amenities": [
-      "coffee_machine",
-      "video_conferencing",
-      "monitor",
-      "standing_desk",
-      "air_conditioning"
-    ],
-    "rating": 3.3,
-    "review_count": 273,
-    "availability": [
-      {
-        "weekday": 0,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 1,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 2,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 3,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 4,
-        "start": "17:00",
-        "end": "21:00"
-      }
-    ]
-  },
-  {
-    "id": "L028",
-    "name": "Anchor Works",
-    "space_type": "hot_desk",
-    "area": "Lower Parel",
-    "address": "115 Chiku Street, Lower Parel",
-    "lat": 19.005,
-    "lng": 72.8249,
-    "capacity": 1,
-    "price_per_hour": 196,
+    "address": "118 Chiku Street, Lower Parel",
+    "lat": 18.9992,
+    "lng": 72.8354,
+    "capacity": 2,
+    "price_per_hour": 832,
     "noise_level": "quiet",
-    "wifi_mbps": 23,
+    "wifi_mbps": 169,
     "amenities": [
-      "monitor",
-      "phone_booth",
-      "locker",
-      "air_conditioning",
-      "video_conferencing"
+      "whiteboard",
+      "parking",
+      "locker"
     ],
-    "rating": 3.9,
-    "review_count": 332,
+    "rating": 4.5,
+    "review_count": 122,
     "availability": [
       {
         "weekday": 0,
@@ -1429,25 +1398,76 @@
     ]
   },
   {
-    "id": "L029",
-    "name": "Cove Den",
+    "id": "L028",
+    "name": "Clover Yard",
     "space_type": "private_cabin",
-    "area": "Goregaon",
-    "address": "105 Indigo Path, Goregaon",
-    "lat": 19.1734,
-    "lng": 72.8513,
-    "capacity": 6,
-    "price_per_hour": 1313,
+    "area": "Lower Parel",
+    "address": "58 Maple Terrace, Lower Parel",
+    "lat": 19.0045,
+    "lng": 72.8361,
+    "capacity": 5,
+    "price_per_hour": 1430,
     "noise_level": "lively",
-    "wifi_mbps": 429,
+    "wifi_mbps": 31,
     "amenities": [
-      "printer",
+      "air_conditioning",
+      "coffee_machine",
       "locker",
+      "phone_booth",
       "parking",
-      "coffee_machine"
+      "standing_desk"
     ],
     "rating": 4.1,
-    "review_count": 72,
+    "review_count": 296,
+    "availability": [
+      {
+        "weekday": 0,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 1,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 2,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 3,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 5,
+        "start": "09:00",
+        "end": "18:00"
+      }
+    ]
+  },
+  {
+    "id": "L029",
+    "name": "Drift Collective",
+    "space_type": "hot_desk",
+    "area": "Goregaon",
+    "address": "115 Pebble Court, Goregaon",
+    "lat": 19.1588,
+    "lng": 72.8463,
+    "capacity": 1,
+    "price_per_hour": 178,
+    "noise_level": "moderate",
+    "wifi_mbps": 103,
+    "amenities": [
+      "air_conditioning",
+      "monitor",
+      "standing_desk",
+      "locker",
+      "projector"
+    ],
+    "rating": 4.5,
+    "review_count": 276,
     "availability": [
       {
         "weekday": 0,
@@ -1483,79 +1503,69 @@
   },
   {
     "id": "L030",
-    "name": "Reed Yard",
-    "space_type": "hot_desk",
+    "name": "Drift Room",
+    "space_type": "meeting_room",
     "area": "Goregaon",
-    "address": "81 Gulmohar Row, Goregaon",
-    "lat": 19.1622,
-    "lng": 72.845,
-    "capacity": 1,
-    "price_per_hour": 140,
-    "noise_level": "moderate",
-    "wifi_mbps": 55,
+    "address": "60 Cobalt Walk, Goregaon",
+    "lat": 19.1584,
+    "lng": 72.8586,
+    "capacity": 17,
+    "price_per_hour": 2703,
+    "noise_level": "quiet",
+    "wifi_mbps": 279,
     "amenities": [
-      "whiteboard",
-      "locker",
-      "standing_desk",
-      "monitor",
-      "air_conditioning"
+      "air_conditioning",
+      "video_conferencing",
+      "phone_booth"
     ],
-    "rating": 4.7,
-    "review_count": 390,
+    "rating": 4.4,
+    "review_count": 371,
     "availability": [
       {
         "weekday": 0,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 1,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 2,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 3,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       },
       {
         "weekday": 4,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 5,
-        "start": "09:00",
-        "end": "18:00"
+        "start": "17:00",
+        "end": "21:00"
       }
     ]
   },
   {
     "id": "L031",
-    "name": "Anchor Hub",
-    "space_type": "private_cabin",
+    "name": "Mint Works",
+    "space_type": "hot_desk",
     "area": "Goregaon",
-    "address": "9 Cobalt Walk, Goregaon",
-    "lat": 19.1646,
-    "lng": 72.8534,
-    "capacity": 5,
-    "price_per_hour": 527,
+    "address": "46 Maple Terrace, Goregaon",
+    "lat": 19.1709,
+    "lng": 72.859,
+    "capacity": 1,
+    "price_per_hour": 293,
     "noise_level": "moderate",
-    "wifi_mbps": 129,
+    "wifi_mbps": 416,
     "amenities": [
-      "video_conferencing",
-      "printer",
       "air_conditioning",
-      "monitor",
-      "locker"
+      "power_backup"
     ],
-    "rating": 3.7,
-    "review_count": 173,
+    "rating": 4.7,
+    "review_count": 309,
     "availability": [
       {
         "weekday": 0,
@@ -1591,134 +1601,78 @@
   },
   {
     "id": "L032",
-    "name": "Willow Collective",
+    "name": "Opal Works",
     "space_type": "private_cabin",
     "area": "Goregaon",
-    "address": "39 Cobalt Walk, Goregaon",
-    "lat": 19.1727,
-    "lng": 72.8608,
+    "address": "50 Willow Crescent, Goregaon",
+    "lat": 19.1693,
+    "lng": 72.858,
     "capacity": 5,
-    "price_per_hour": 1502,
-    "noise_level": "quiet",
-    "wifi_mbps": 372,
+    "price_per_hour": 960,
+    "noise_level": "lively",
+    "wifi_mbps": 342,
     "amenities": [
+      "whiteboard",
       "air_conditioning",
-      "projector",
-      "phone_booth",
-      "locker"
+      "power_backup",
+      "monitor",
+      "locker",
+      "video_conferencing",
+      "printer"
     ],
-    "rating": 3.6,
-    "review_count": 225,
+    "rating": 3.9,
+    "review_count": 392,
     "availability": [
       {
         "weekday": 0,
         "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       },
       {
         "weekday": 1,
         "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       },
       {
         "weekday": 2,
         "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       },
       {
         "weekday": 3,
         "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       },
       {
         "weekday": 4,
         "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       },
       {
         "weekday": 5,
         "start": "09:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 6,
-        "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       }
     ]
   },
   {
     "id": "L033",
-    "name": "Opal Works",
-    "space_type": "private_cabin",
+    "name": "Cobalt Loft",
+    "space_type": "meeting_room",
     "area": "Malad",
-    "address": "50 Willow Crescent, Malad",
-    "lat": 19.1904,
-    "lng": 72.8538,
-    "capacity": 7,
-    "price_per_hour": 569,
-    "noise_level": "moderate",
-    "wifi_mbps": 48,
-    "amenities": [
-      "whiteboard",
-      "monitor",
-      "locker",
-      "power_backup",
-      "standing_desk",
-      "parking"
-    ],
-    "rating": 4.5,
-    "review_count": 289,
-    "availability": [
-      {
-        "weekday": 0,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 1,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 2,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 3,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 4,
-        "start": "09:00",
-        "end": "18:00"
-      },
-      {
-        "weekday": 5,
-        "start": "09:00",
-        "end": "18:00"
-      }
-    ]
-  },
-  {
-    "id": "L034",
-    "name": "Beacon Studios",
-    "space_type": "hot_desk",
-    "area": "Malad",
-    "address": "111 Juniper Rise, Malad",
+    "address": "18 Juniper Rise, Malad",
     "lat": 19.1817,
     "lng": 72.8441,
-    "capacity": 1,
-    "price_per_hour": 107,
-    "noise_level": "moderate",
-    "wifi_mbps": 89,
+    "capacity": 4,
+    "price_per_hour": 500,
+    "noise_level": "lively",
+    "wifi_mbps": 177,
     "amenities": [
+      "air_conditioning",
       "parking",
       "projector",
       "phone_booth",
-      "air_conditioning",
+      "standing_desk",
       "locker"
     ],
     "rating": 4.6,
@@ -1757,175 +1711,178 @@
     ]
   },
   {
-    "id": "L035",
-    "name": "Mint Works",
+    "id": "L034",
+    "name": "Cobalt Yard",
     "space_type": "meeting_room",
     "area": "Malad",
-    "address": "96 Pebble Court, Malad",
-    "lat": 19.1793,
-    "lng": 72.8565,
-    "capacity": 11,
-    "price_per_hour": 1831,
+    "address": "3 Indigo Path, Malad",
+    "lat": 19.1881,
+    "lng": 72.8574,
+    "capacity": 12,
+    "price_per_hour": 1392,
     "noise_level": "quiet",
-    "wifi_mbps": 104,
+    "wifi_mbps": 189,
     "amenities": [
-      "standing_desk",
+      "whiteboard",
+      "air_conditioning",
       "phone_booth",
-      "power_backup",
-      "video_conferencing"
+      "standing_desk",
+      "power_backup"
     ],
-    "rating": 4.0,
-    "review_count": 6,
+    "rating": 3.6,
+    "review_count": 177,
     "availability": [
       {
         "weekday": 0,
-        "start": "17:00",
-        "end": "21:00"
+        "start": "09:00",
+        "end": "18:00"
       },
       {
         "weekday": 1,
-        "start": "17:00",
-        "end": "21:00"
+        "start": "09:00",
+        "end": "18:00"
       },
       {
         "weekday": 2,
-        "start": "17:00",
-        "end": "21:00"
+        "start": "09:00",
+        "end": "18:00"
       },
       {
         "weekday": 3,
-        "start": "17:00",
-        "end": "21:00"
+        "start": "09:00",
+        "end": "18:00"
       },
       {
         "weekday": 4,
-        "start": "17:00",
-        "end": "21:00"
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 5,
+        "start": "09:00",
+        "end": "18:00"
+      }
+    ]
+  },
+  {
+    "id": "L035",
+    "name": "Banyan Works",
+    "space_type": "hot_desk",
+    "area": "Malad",
+    "address": "80 Amaltas Marg, Malad",
+    "lat": 19.1827,
+    "lng": 72.8479,
+    "capacity": 1,
+    "price_per_hour": 82,
+    "noise_level": "moderate",
+    "wifi_mbps": 89,
+    "amenities": [
+      "whiteboard",
+      "air_conditioning",
+      "projector"
+    ],
+    "rating": 3.6,
+    "review_count": 2,
+    "availability": [
+      {
+        "weekday": 1,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 2,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 3,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 4,
+        "start": "09:00",
+        "end": "18:00"
+      },
+      {
+        "weekday": 5,
+        "start": "09:00",
+        "end": "18:00"
       }
     ]
   },
   {
     "id": "L036",
-    "name": "Quartz Hub",
-    "space_type": "private_cabin",
-    "area": "Malad",
-    "address": "108 Neem Lane, Malad",
-    "lat": 19.1896,
-    "lng": 72.8437,
-    "capacity": 5,
-    "price_per_hour": 1085,
-    "noise_level": "moderate",
-    "wifi_mbps": 342,
-    "amenities": [
-      "whiteboard",
-      "projector"
-    ],
-    "rating": 3.3,
-    "review_count": 343,
-    "availability": [
-      {
-        "weekday": 0,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 1,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 2,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 3,
-        "start": "17:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 4,
-        "start": "17:00",
-        "end": "21:00"
-      }
-    ]
-  },
-  {
-    "id": "L037",
     "name": "Clover Corner",
     "space_type": "meeting_room",
-    "area": "Vashi",
-    "address": "14 Kite Lane, Vashi",
-    "lat": 19.0686,
-    "lng": 72.9952,
-    "capacity": 16,
-    "price_per_hour": 1312,
-    "noise_level": "quiet",
-    "wifi_mbps": 281,
+    "area": "Malad",
+    "address": "14 Kite Lane, Malad",
+    "lat": 19.1789,
+    "lng": 72.845,
+    "capacity": 7,
+    "price_per_hour": 826,
+    "noise_level": "moderate",
+    "wifi_mbps": 31,
     "amenities": [
+      "air_conditioning",
       "standing_desk",
       "coffee_machine",
       "printer",
-      "video_conferencing"
+      "power_backup"
     ],
-    "rating": 3.4,
+    "rating": 4.2,
     "review_count": 121,
     "availability": [
       {
         "weekday": 0,
         "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       },
       {
         "weekday": 1,
         "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       },
       {
         "weekday": 2,
         "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       },
       {
         "weekday": 3,
         "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       },
       {
         "weekday": 4,
         "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       },
       {
         "weekday": 5,
         "start": "09:00",
-        "end": "21:00"
-      },
-      {
-        "weekday": 6,
-        "start": "09:00",
-        "end": "21:00"
+        "end": "18:00"
       }
     ]
   },
   {
-    "id": "L038",
-    "name": "Quartz Desk Co",
-    "space_type": "private_cabin",
+    "id": "L037",
+    "name": "Indigo Den",
+    "space_type": "meeting_room",
     "area": "Vashi",
-    "address": "90 Maple Terrace, Vashi",
-    "lat": 19.0834,
-    "lng": 73.0004,
-    "capacity": 2,
-    "price_per_hour": 979,
-    "noise_level": "quiet",
+    "address": "104 Chiku Street, Vashi",
+    "lat": 19.0824,
+    "lng": 72.9998,
+    "capacity": 7,
+    "price_per_hour": 602,
+    "noise_level": "moderate",
     "wifi_mbps": 164,
     "amenities": [
-      "whiteboard",
-      "air_conditioning"
+      "video_conferencing",
+      "monitor"
     ],
-    "rating": 4.8,
-    "review_count": 111,
+    "rating": 3.9,
+    "review_count": 376,
     "availability": [
       {
         "weekday": 0,
@@ -1960,7 +1917,7 @@
     ]
   },
   {
-    "id": "L039",
+    "id": "L038",
     "name": "Terrace Yard",
     "space_type": "hot_desk",
     "area": "Vashi",
@@ -1968,18 +1925,18 @@
     "lat": 19.0854,
     "lng": 73.001,
     "capacity": 1,
-    "price_per_hour": 170,
-    "noise_level": "moderate",
-    "wifi_mbps": 252,
+    "price_per_hour": 219,
+    "noise_level": "lively",
+    "wifi_mbps": 95,
     "amenities": [
-      "phone_booth",
-      "coffee_machine",
-      "video_conferencing",
+      "whiteboard",
       "air_conditioning",
-      "projector"
+      "video_conferencing",
+      "parking",
+      "coffee_machine"
     ],
-    "rating": 4.5,
-    "review_count": 187,
+    "rating": 3.8,
+    "review_count": 229,
     "availability": [
       {
         "weekday": 0,
@@ -2019,27 +1976,27 @@
     ]
   },
   {
-    "id": "L040",
-    "name": "Beacon Den",
-    "space_type": "meeting_room",
+    "id": "L039",
+    "name": "Harbor Loft",
+    "space_type": "hot_desk",
     "area": "Vashi",
-    "address": "35 Willow Crescent, Vashi",
-    "lat": 19.0834,
-    "lng": 73.0046,
-    "capacity": 6,
-    "price_per_hour": 1071,
-    "noise_level": "moderate",
-    "wifi_mbps": 247,
+    "address": "106 Indigo Path, Vashi",
+    "lat": 19.0788,
+    "lng": 72.9954,
+    "capacity": 1,
+    "price_per_hour": 106,
+    "noise_level": "quiet",
+    "wifi_mbps": 203,
     "amenities": [
       "whiteboard",
-      "power_backup",
-      "standing_desk",
+      "air_conditioning",
+      "printer",
       "parking",
-      "locker",
-      "monitor"
+      "standing_desk",
+      "locker"
     ],
-    "rating": 3.5,
-    "review_count": 100,
+    "rating": 4.0,
+    "review_count": 88,
     "availability": [
       {
         "weekday": 0,
@@ -2070,6 +2027,64 @@
         "weekday": 5,
         "start": "09:00",
         "end": "18:00"
+      }
+    ]
+  },
+  {
+    "id": "L040",
+    "name": "Loop Collective",
+    "space_type": "private_cabin",
+    "area": "Vashi",
+    "address": "4 Juniper Rise, Vashi",
+    "lat": 19.0834,
+    "lng": 72.9929,
+    "capacity": 6,
+    "price_per_hour": 918,
+    "noise_level": "lively",
+    "wifi_mbps": 414,
+    "amenities": [
+      "air_conditioning",
+      "locker",
+      "monitor",
+      "power_backup"
+    ],
+    "rating": 4.6,
+    "review_count": 54,
+    "availability": [
+      {
+        "weekday": 0,
+        "start": "09:00",
+        "end": "21:00"
+      },
+      {
+        "weekday": 1,
+        "start": "09:00",
+        "end": "21:00"
+      },
+      {
+        "weekday": 2,
+        "start": "09:00",
+        "end": "21:00"
+      },
+      {
+        "weekday": 3,
+        "start": "09:00",
+        "end": "21:00"
+      },
+      {
+        "weekday": 4,
+        "start": "09:00",
+        "end": "21:00"
+      },
+      {
+        "weekday": 5,
+        "start": "09:00",
+        "end": "21:00"
+      },
+      {
+        "weekday": 6,
+        "start": "09:00",
+        "end": "21:00"
       }
     ]
   }

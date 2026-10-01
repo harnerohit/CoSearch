@@ -22,6 +22,15 @@ PRICE_RANGES = {
     "private_cabin": (400, 2000),
     "meeting_room": (500, 3500),
 }
+# Per-person hourly rate bands: price = rate x capacity, area-skewed, clipped to PRICE_RANGES
+# so every Section 7 range keeps holding while price scales with capacity.
+RATE_RANGES = {
+    "hot_desk": (80, 300),
+    "private_cabin": (150, 320),
+    "meeting_room": (110, 190),
+}
+HIGH_SKEW_FACTOR = 1.3  # BKC and Lower Parel skew higher.
+LOW_SKEW_FACTOR = 0.75  # Vashi and Malad skew lower.
 CAPACITY_RANGES = {"hot_desk": (1, 1), "private_cabin": (2, 8), "meeting_room": (4, 20)}
 HIGH_SKEW_AREAS = frozenset({"BKC", "Lower Parel"})
 LOW_SKEW_AREAS = frozenset({"Vashi", "Malad"})
@@ -39,6 +48,7 @@ GENERATED_BY_AREA = {
 TYPE_POOL = ["hot_desk"] * 12 + ["private_cabin"] * 12 + ["meeting_room"] * 12
 NOISE_POOL = ["quiet"] * 11 + ["moderate"] * 12 + ["lively"] * 13
 WHITEBOARD_POOL = [True] * 13 + [False] * 23  # + 3 borderline = 16/40 whiteboards.
+AIRCON_POOL = [True] * 32 + [False] * 4  # + 2 borderline = 34/40 listings (85%).
 AVAILABILITY_POOL = (
     [("standard", None)] * 22
     + [("weekday_gap", day) for day in (0, 1, 2, 3, 4, 2)]
@@ -93,14 +103,16 @@ def _availability_windows(name: str, gap_day: int | None) -> list[dict]:
     return [{"weekday": day, "start": start, "end": end} for day in days]
 
 
-def _price(rng: random.Random, area: str, space_type: str) -> int:
-    """Random price within the type range, skewed up for BKC/Lower Parel, down for Vashi/Malad."""
+def _price(rng: random.Random, area: str, space_type: str, capacity: int) -> int:
+    """Price = per-person rate x capacity, area-skewed, clipped to the Section 7 type range."""
     low, high = PRICE_RANGES[space_type]
+    rate_low, rate_high = RATE_RANGES[space_type]
+    rate = rng.randint(rate_low, rate_high)
     if area in HIGH_SKEW_AREAS:
-        low = (low + high) // 2
+        rate = round(rate * HIGH_SKEW_FACTOR)
     elif area in LOW_SKEW_AREAS:
-        high = (low + high) // 2
-    return rng.randint(low, high)
+        rate = round(rate * LOW_SKEW_FACTOR)
+    return min(high, max(low, rate * capacity))
 
 
 def _unique_name(rng: random.Random, used: set[str]) -> str:
@@ -143,16 +155,20 @@ def _build_generated(rng: random.Random, used_names: set[str]) -> list[dict]:
     pools = {
         "space_type": list(TYPE_POOL),
         "noise": list(NOISE_POOL),
-        "wifi": [rng.randint(20, 99) for _ in range(10)]
-        + [rng.randint(100, 199) for _ in range(8)]
-        + [rng.randint(200, 500) for _ in range(18)],
+        # 14 below 100, 11 at 100-199, 11 at 200+ here; +3/+1 from borderline = 14/14/12.
+        "wifi": [rng.randint(20, 99) for _ in range(14)]
+        + [rng.randint(100, 199) for _ in range(11)]
+        + [rng.randint(200, 500) for _ in range(11)],
         "whiteboard": list(WHITEBOARD_POOL),
+        "aircon": list(AIRCON_POOL),
         "availability": list(AVAILABILITY_POOL),
     }
     for pool in pools.values():
         rng.shuffle(pool)
 
-    other_amenities = [name for name in config.AMENITIES if name != "whiteboard"]
+    other_amenities = [
+        name for name in config.AMENITIES if name not in ("whiteboard", "air_conditioning")
+    ]
     records = []
     for area, count in GENERATED_BY_AREA.items():
         for _ in range(count):
@@ -165,11 +181,15 @@ def _build_generated(rng: random.Random, used_names: set[str]) -> list[dict]:
                 rating, review_count = round(rng.uniform(3.2, 4.9), 1), rng.randint(1, 9)
             else:
                 rating, review_count = round(rng.uniform(3.2, 4.9), 1), rng.randint(10, 400)
-            amenities = rng.sample(other_amenities, rng.randint(1, 5))
+            forced = []
             if pools["whiteboard"][index]:
-                amenities = ["whiteboard"] + amenities
+                forced.append("whiteboard")
+            if pools["aircon"][index]:
+                forced.append("air_conditioning")
+            amenities = forced + rng.sample(other_amenities, rng.randint(1, 5))
             centre_lat, centre_lng = config.AREAS[area]
             pattern, gap_day = pools["availability"][index]
+            capacity = rng.randint(low, high)
             records.append(
                 {
                     "name": _unique_name(rng, used_names),
@@ -178,8 +198,8 @@ def _build_generated(rng: random.Random, used_names: set[str]) -> list[dict]:
                     "address": f"{rng.randint(1, 120)} {rng.choice(STREETS)}, {area}",
                     "lat": round(centre_lat + rng.uniform(-0.009, 0.009), 4),
                     "lng": round(centre_lng + rng.uniform(-0.009, 0.009), 4),
-                    "capacity": rng.randint(low, high),
-                    "price_per_hour": _price(rng, area, space_type),
+                    "capacity": capacity,
+                    "price_per_hour": _price(rng, area, space_type, capacity),
                     "noise_level": pools["noise"][index],
                     "wifi_mbps": pools["wifi"][index],
                     "amenities": amenities,
@@ -217,6 +237,15 @@ def _check(listings: list[Listing]) -> None:
     weekdays = set(range(0, 5))
     gaps = [item.name for item in listings if weekdays - {w.weekday for w in item.availability}]
     assert len(gaps) >= 5, gaps
+    aircon = sum("air_conditioning" in [a.value for a in item.amenities] for item in listings)
+    assert aircon == 34, aircon
+    buckets = (
+        sum(item.wifi_mbps < 100 for item in listings),
+        sum(100 <= item.wifi_mbps < 200 for item in listings),
+        sum(item.wifi_mbps >= 200 for item in listings),
+    )
+    assert buckets == (14, 14, 12), buckets
+    assert min(item.price_per_hour / item.capacity for item in listings) >= 50
     expected = {spec["name"]: spec["expected_miss"] for spec in BORDERLINE_SPECS}
     for item in listings[:4]:
         misses = []
@@ -245,10 +274,33 @@ def _summary(listings: list[Listing]) -> None:
         print(
             f"Price {space_type:<13} min={min(prices)}  median={statistics.median(prices):g}  max={max(prices)}"
         )
+    print("Price per person at full capacity (price_per_hour / capacity, INR/hour):")
+    for space_type in ("hot_desk", "private_cabin", "meeting_room"):
+        per_person = [
+            item.price_per_hour / item.capacity
+            for item in listings
+            if item.space_type.value == space_type
+        ]
+        print(
+            f"  {space_type:<14} min={min(per_person):.1f}  "
+            f"median={statistics.median(per_person):.1f}  max={max(per_person):.1f}"
+        )
+    cheap = [item for item in listings if item.price_per_hour / item.capacity < 50]
+    if cheap:
+        for item in cheap:
+            per_person = item.price_per_hour / item.capacity
+            print(
+                f"  UNDER 50: {item.id} {item.name} ({item.space_type.value}, "
+                f"capacity {item.capacity}) {item.price_per_hour}/hr = {per_person:.1f}/person"
+            )
+    else:
+        print("  Listings under 50 INR per person at full capacity: none")
     slow = sum(item.wifi_mbps < 100 for item in listings)
     mid = sum(100 <= item.wifi_mbps < 200 for item in listings)
     fast = sum(item.wifi_mbps >= 200 for item in listings)
     print(f"Wifi buckets: <100={slow}  100-199={mid}  >=200={fast}")
+    aircon = sum("air_conditioning" in [a.value for a in item.amenities] for item in listings)
+    print(f"air_conditioning coverage: {aircon}/40 listings (target 34 = 85%)")
     amenities = Counter(a.value for item in listings for a in item.amenities)
     frequencies = "  ".join(f"{name}={count}" for name, count in sorted(amenities.items(), key=lambda x: (-x[1], x[0])))
     print(f"Amenity frequencies: {frequencies}")
