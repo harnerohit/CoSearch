@@ -22,6 +22,9 @@ AREA_ALIASES: dict[str, str] = {
     "malad west": "Malad",
 }
 
+# Great-circle radius used by geo.haversine_km.
+EARTH_RADIUS_KM = 6371.0
+
 # Listing lat/lng must be within this many degrees of the area centre (Section 6).
 MAX_COORD_OFFSET_DEG = 0.01
 

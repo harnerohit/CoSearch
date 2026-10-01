@@ -463,12 +463,12 @@ Run and report each check:
 
 ## 12. Progress checklist (the agent updates this section only)
 
-Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 3.12, never the default 3.14; AGENTS.md updated from 3.11 on 2026-10-01). OS Windows 11, PowerShell 5.1. Groq key ready, human writes `.env` at Step 6 (never printed). Areas: Mumbai only, the 8 listed, unchanged. Ranking weights: unchanged, final approval at Gate 3. Starting model: `openai/gpt-oss-20b`. Old `B1`-`B6` git history backed up outside the project and repo re-initialized for `step N:` commits.
+Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 3.12, never the default 3.14; AGENTS.md updated from 3.11 on 2026-10-01). OS Windows 11, PowerShell 5.1. Groq key ready, human writes `.env` at Step 6 (never printed). Areas: Mumbai only, the 8 listed, unchanged. Ranking weights: **approved unchanged at Gate 3 (2026-10-01)**. Starting model: `openai/gpt-oss-20b`. Old `B1`-`B6` git history backed up outside the project and repo re-initialized for `step N:` commits.
 
 - [x] Step 0 Preflight
 - [x] Step 1 Scaffold and environment
 - [x] Step 2 config and schemas
-- [x] Step 3 Synthetic data (Gate 3 human approval)
+- [x] Step 3 Synthetic data (Gate 3 approved 2026-10-01, weights/thresholds included)
 - [ ] Step 4 loader, geo, filters
 - [ ] Step 5 ranker and facts
 - [ ] Step 6 llm client
@@ -483,14 +483,15 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 ### Handoff status block (updated at every gate, together with the checklist and commit)
 
 ```
-(1) Last approved gate: Gate 2 (Step 2); Step 3 revisions done, Gate 3 (human) awaiting approval.
-(2) Latest commit before this one: 52f329c step 3: deterministic 40-listing generator with distribution checks and borderline cases.
-(3) Pending at Gate 3: review of revised summary, 6 samples, price/wifi/aircon numbers, and Section 7 weights.
+(1) Last approved gate: Gate 3 (Section 7 weights/thresholds); Step 4 done, Gate 4 awaiting reply.
+(2) Latest commit before this one: 351d78d step 3: data revisions and handoff block.
+(3) Pending at Gate 4: pytest evidence for test_filters/test_geo (35 passed, shown in gate report).
 (4) Decision: Python 3.12 replaces 3.11 (spec amended 2026-10-01).
-(4) Decision: tests/test_schemas.py added to the Section 5 tree; extra="ignore" on ParsedQuery plus nested budget/time_window/soft.
-(4) Decision: generator uses sys.path.insert bootstrap; price = per-person rate x capacity, clipped to unchanged Section 7 ranges.
+(4) Decision: tests/test_schemas.py in Section 5 tree; extra="ignore" on ParsedQuery plus nested budget/time_window/soft.
+(4) Decision: generator sys.path.insert bootstrap; price = per-person rate x capacity clipped to unchanged Section 7 ranges (Step 3 record).
+(4) Decision: Step 4 puts Violations and hhmm_to_minutes in schemas.py, EARTH_RADIUS_KM in config.py (one place per spec).
 (5) Open: LLM JSON-mode and reasoning behaviour unverified until the Step 6 live smoke test.
-(6) Tests: .\.venv\Scripts\python.exe -m pytest -> 13 passed (run at this gate).
-(7) Next: Step 4 data_loader/geo/filters; gate type: agent-only (Gate 4).
+(6) Tests: .\.venv\Scripts\python.exe -m pytest -> 35 passed (run at this gate).
+(7) Next: Step 5 ranker/facts; gate type: agent-only (Gate 5).
 (8) Environment: project root E:\CoSearch; Python 3.12.13; venv E:\CoSearch\.venv (.\.venv\Scripts\python.exe).
 ```

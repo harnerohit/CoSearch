@@ -60,11 +60,14 @@ def _validate_hhmm(value: str) -> str:
     return value
 
 
+def hhmm_to_minutes(value: str) -> int:
+    """Convert a validated HH:MM string to minutes since midnight."""
+    return int(value[:2]) * 60 + int(value[3:])
+
+
 def _ensure_end_after_start(start: str, end: str) -> None:
     """Raise if end is not later than start (both HH:MM strings)."""
-    start_minutes = int(start[:2]) * 60 + int(start[3:])
-    end_minutes = int(end[:2]) * 60 + int(end[3:])
-    if end_minutes <= start_minutes:
+    if hhmm_to_minutes(end) <= hhmm_to_minutes(start):
         raise ValueError(f"end {end!r} must be after start {start!r}")
 
 
@@ -209,6 +212,18 @@ class ParsedQuery(BaseModel):
         if self.location is not None and self.unrecognized_location is not None:
             raise ValueError("location and unrecognized_location are mutually exclusive")
         return self
+
+
+class Violations(BaseModel):
+    """Hard-constraint violation sizes for one listing (Section 4): 0/False means satisfied."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    location_km: float = Field(default=0.0, ge=0)
+    capacity_short: int = Field(default=0, ge=0)
+    budget_over_pct: float = Field(default=0.0, ge=0)
+    hours_short: float = Field(default=0.0, ge=0)
+    space_type_mismatch: bool = False
 
 
 class ResultItem(BaseModel):
