@@ -95,3 +95,30 @@ LLM_JSON_RETRIES = 1  # on invalid JSON or an empty answer.
 LLM_BACKOFF_SECONDS = 2.0  # "short backoff"; exact value chosen here, review at Gate 2/3.
 LLM_REASONING_EFFORT = "low"  # lowest value Groq accepts for gpt-oss (live-verified 2026-10-01).
 LLM_MAX_TOKENS = 4096  # per-answer output cap; reasoning tokens count toward it.
+
+# --- Step 8: pipeline messages (code templates; never LLM text) ---
+# Percent -> fraction divisor: normalizes budget_over_pct for alternative ordering.
+PERCENT_SCALE = 100.0
+
+# Whole-city names: exact match (after strip+casefold) against the unrecognized location
+# decides "which area?" instead of a coverage rejection; never a substring check.
+CITY_NAMES: tuple[str, ...] = ("mumbai", "bombay")
+
+MSG_EMPTY_QUERY = "Please type what you're looking for - e.g. a quiet desk in Bandra for 2 tomorrow afternoon."
+MSG_LLM_ERROR = "Something went wrong reaching the AI service. Please try again in a moment."
+MSG_PARSE_ERROR = "Something went wrong understanding your request. Please try again with different wording."
+MSG_UNSUPPORTED_BUDGET = "I can't use a per-day or per-month budget. Please give an hourly budget, e.g. Rs. 600 per person per hour."
+MSG_MISSING_INFO = "I need at least one of: an area, a group size, an hourly budget, or a date/time. We cover these Mumbai areas: {areas}."
+MSG_COVERAGE = "I couldn't place \"{area}\" - I can only search these Mumbai areas: {areas}."
+MSG_CITY_NO_AREA = "Which area of Mumbai? I can search: {areas}."
+MSG_NO_MATCH = "No space matches every requirement. The main blockers: {reasons}."
+NOTE_DEFAULT_PARTY_SIZE = "No group size given; assuming 1 person for per-person pricing."
+
+# Per-constraint advice rendered into MSG_NO_MATCH (key = Violations category).
+NO_MATCH_LOOSEN: dict[str, str] = {
+    "location": "try another covered area",
+    "capacity": "try a smaller group",
+    "budget": "try a higher budget",
+    "time": "try another date or time",
+    "space_type": "try a different space type: hot desk, private cabin, or meeting room",
+}
