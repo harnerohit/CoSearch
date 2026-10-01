@@ -469,7 +469,7 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 - [x] Step 1 Scaffold and environment
 - [x] Step 2 config and schemas
 - [x] Step 3 Synthetic data (Gate 3 approved 2026-10-01, weights/thresholds included)
-- [ ] Step 4 loader, geo, filters
+- [x] Step 4 loader, geo, filters (Gate 4 approved 2026-10-01)
 - [ ] Step 5 ranker and facts
 - [ ] Step 6 llm client
 - [ ] Step 7 parser
@@ -483,15 +483,16 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 ### Handoff status block (updated at every gate, together with the checklist and commit)
 
 ```
-(1) Last approved gate: Gate 3 (Section 7 weights/thresholds); Step 4 done, Gate 4 awaiting reply.
-(2) Latest commit before this one: 351d78d step 3: data revisions and handoff block.
-(3) Pending at Gate 4: pytest evidence for test_filters/test_geo (35 passed, shown in gate report).
+(1) Last approved gate: Gate 4; Step 5 done, Gate 5 awaiting reply.
+(2) Latest commit before this one: 99548f1 step 4: data loader, geo, and hard-constraint filters with boundary tests.
+(3) Pending at Gate 5: pytest evidence for test_ranker plus facts tests (45 passed, shown in gate report).
 (4) Decision: Python 3.12 replaces 3.11 (spec amended 2026-10-01).
 (4) Decision: tests/test_schemas.py in Section 5 tree; extra="ignore" on ParsedQuery plus nested budget/time_window/soft.
-(4) Decision: generator sys.path.insert bootstrap; price = per-person rate x capacity clipped to unchanged Section 7 ranges (Step 3 record).
-(4) Decision: Step 4 puts Violations and hhmm_to_minutes in schemas.py, EARTH_RADIUS_KM in config.py (one place per spec).
+(4) Decision: placement — Violations and hhmm_to_minutes in schemas.py; EARTH_RADIUS_KM, NEAR_BUDGET_MARGIN_PCT, LOW_REVIEW_LIMIT in config.py; listing factory in tests/conftest.py.
 (5) Open: LLM JSON-mode and reasoning behaviour unverified until the Step 6 live smoke test.
-(6) Tests: .\.venv\Scripts\python.exe -m pytest -> 35 passed (run at this gate).
-(7) Next: Step 5 ranker/facts; gate type: agent-only (Gate 5).
+(5) Open: a query naming only "Mumbai" (no area) should trigger a which-area question in Step 8, not a coverage rejection.
+(5) Open: "andheri east" and "Parel" do not resolve; alias proposals for the human pending, no change made.
+(6) Tests: .\.venv\Scripts\python.exe -m pytest -> 45 passed (run at this gate).
+(7) Next: Step 6 llm client; gate type: human (Gate 6: API key in .env and model choice).
 (8) Environment: project root E:\CoSearch; Python 3.12.13; venv E:\CoSearch\.venv (.\.venv\Scripts\python.exe).
 ```

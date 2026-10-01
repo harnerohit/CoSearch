@@ -76,6 +76,10 @@ ALT_MAX_DISTANCE_KM = 8
 MAX_QUERY_CHARS = 300
 SESSION_SEARCH_LIMIT = 20
 
+# Facts (Step 5): tradeoff thresholds.
+NEAR_BUDGET_MARGIN_PCT = 15.0  # price within this percent of the limit is a tradeoff.
+LOW_REVIEW_LIMIT = 10  # fewer reviews than this is a tradeoff.
+
 # --- LLM settings (Section 7) ---
 LLM_TEMPERATURE = 0.0
 LLM_TIMEOUT_SECONDS = 30.0

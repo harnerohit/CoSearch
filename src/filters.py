@@ -17,6 +17,11 @@ from src.schemas import (
 )
 
 
+def party_size_for(parsed: ParsedQuery) -> int:
+    """Party size for per-person pricing: the stated size or the config default (one place)."""
+    return parsed.party_size if parsed.party_size is not None else config.DEFAULT_PARTY_SIZE
+
+
 def budget_price(listing: Listing, party_size: int, basis: BudgetBasis) -> float:
     """Convert a listing's hourly price to the user's budget basis (the only conversion)."""
     if basis is BudgetBasis.TOTAL_PER_HOUR:
@@ -58,12 +63,7 @@ def check_listing(listing: Listing, parsed: ParsedQuery) -> Violations:
 
     budget_over_pct = 0.0
     if parsed.budget is not None:
-        party = (
-            parsed.party_size
-            if parsed.party_size is not None
-            else config.DEFAULT_PARTY_SIZE
-        )
-        price = budget_price(listing, party, parsed.budget.basis)
+        price = budget_price(listing, party_size_for(parsed), parsed.budget.basis)
         if price > parsed.budget.amount:
             budget_over_pct = (price - parsed.budget.amount) / parsed.budget.amount * 100
 

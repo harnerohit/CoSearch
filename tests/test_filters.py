@@ -1,6 +1,7 @@
 """Step 4: hard-constraint boundaries (capacity, budget, availability, area, space type)."""
 
 import datetime
+from collections.abc import Callable
 
 import pytest
 
@@ -18,32 +19,7 @@ MONDAY = datetime.date(2026, 10, 5)  # a real Monday: 2026-10-01 is a Thursday
 SUNDAY = datetime.date(2026, 10, 4)  # a real Sunday
 
 
-def make_listing(**overrides: object) -> Listing:
-    """Listing with realistic defaults; tests override one field at a time."""
-    record: dict[str, object] = {
-        "id": "L001",
-        "name": "Test Loft",
-        "space_type": "meeting_room",
-        "area": "Bandra",
-        "address": "1 Test Lane, Bandra",
-        "lat": 19.0596,
-        "lng": 72.8295,
-        "capacity": 4,
-        "price_per_hour": 2400,
-        "noise_level": "quiet",
-        "wifi_mbps": 150,
-        "amenities": ["whiteboard"],
-        "rating": 4.2,
-        "review_count": 50,
-        "availability": [
-            {"weekday": day, "start": "09:00", "end": "18:00"} for day in range(7)
-        ],
-    }
-    record.update(overrides)
-    return Listing.model_validate(record)
-
-
-def test_capacity_exact_boundary() -> None:
+def test_capacity_exact_boundary(make_listing: Callable[..., Listing]) -> None:
     """Party equal to capacity passes; one extra person is short by exactly one."""
     listing = make_listing(capacity=4)
     exact = check_listing(listing, ParsedQuery(party_size=4))
@@ -54,7 +30,7 @@ def test_capacity_exact_boundary() -> None:
     assert not passes(over)
 
 
-def test_budget_exact_boundary_total_basis() -> None:
+def test_budget_exact_boundary_total_basis(make_listing: Callable[..., Listing]) -> None:
     """Exactly at budget passes; one rupee over is a positive overage."""
     listing = make_listing(price_per_hour=2400)
     exact = check_listing(
@@ -69,7 +45,7 @@ def test_budget_exact_boundary_total_basis() -> None:
     assert over.budget_over_pct == pytest.approx(100 / 2399)
 
 
-def test_budget_per_person_versus_total_basis() -> None:
+def test_budget_per_person_versus_total_basis(make_listing: Callable[..., Listing]) -> None:
     """Per person divides by party size; total compares the unit price directly."""
     listing = make_listing(price_per_hour=2400)
     assert budget_price(listing, 4, BudgetBasis.PER_PERSON_PER_HOUR) == 600
@@ -92,7 +68,7 @@ def test_budget_per_person_versus_total_basis() -> None:
     assert same_amount_as_total.budget_over_pct == pytest.approx(300.0)
 
 
-def test_budget_without_party_size_defaults_to_one() -> None:
+def test_budget_without_party_size_defaults_to_one(make_listing: Callable[..., Listing]) -> None:
     """Missing party size means per-person pricing counts a single person."""
     listing = make_listing(price_per_hour=2400)
     assert (
@@ -103,13 +79,16 @@ def test_budget_without_party_size_defaults_to_one() -> None:
     assert check_listing(listing, parsed).budget_over_pct == pytest.approx(300.0)
 
 
-def test_availability_full_afternoon_covers_request() -> None:
+def test_availability_full_afternoon_covers_request(make_listing: Callable[..., Listing]) -> None:
     """A 09:00-18:00 window fully covers the 12:00-17:00 afternoon."""
     listing = make_listing()
-    assert availability_shortfall(listing, MONDAY, TimeWindow(start="12:00", end="17:00")) == 0.0
+    assert (
+        availability_shortfall(listing, MONDAY, TimeWindow(start="12:00", end="17:00"))
+        == 0.0
+    )
 
 
-def test_availability_exact_two_hour_overlap_boundary() -> None:
+def test_availability_exact_two_hour_overlap_boundary(make_listing: Callable[..., Listing]) -> None:
     """Overlap of exactly min(MIN_BOOKING_HOURS, duration) passes; less shortfalls."""
     listing = make_listing()
     exact = TimeWindow(start="16:00", end="18:00")  # overlaps 16:00-18:00 = 2.0h
@@ -118,7 +97,7 @@ def test_availability_exact_two_hour_overlap_boundary() -> None:
     assert availability_shortfall(listing, MONDAY, short) == 0.5
 
 
-def test_availability_request_shorter_than_min_booking() -> None:
+def test_availability_request_shorter_than_min_booking(make_listing: Callable[..., Listing]) -> None:
     """A request under 2 hours is held to its own duration, not MIN_BOOKING_HOURS."""
     listing = make_listing()
     one_hour_exact = TimeWindow(start="17:00", end="18:00")  # overlap = 1.0h
@@ -127,14 +106,14 @@ def test_availability_request_shorter_than_min_booking() -> None:
     assert availability_shortfall(listing, MONDAY, one_hour_short) == 0.5
 
 
-def test_availability_no_date_skips_filter() -> None:
+def test_availability_no_date_skips_filter(make_listing: Callable[..., Listing]) -> None:
     """No date in the query means the availability filter never runs."""
     closed = make_listing(availability=[])
     assert availability_shortfall(closed, None, None) == 0.0
     assert check_listing(closed, ParsedQuery(party_size=4)).hours_short == 0.0
 
 
-def test_availability_date_without_time() -> None:
+def test_availability_date_without_time(make_listing: Callable[..., Listing]) -> None:
     """Any window on the requested weekday passes; a closed weekday does not."""
     listing = make_listing()
     assert availability_shortfall(listing, MONDAY, None) == 0.0
@@ -147,7 +126,9 @@ def test_availability_date_without_time() -> None:
     )
 
 
-def test_availability_closed_weekday_with_time_shortfalls_required_hours() -> None:
+def test_availability_closed_weekday_with_time_shortfalls_required_hours(
+    make_listing: Callable[..., Listing],
+) -> None:
     """Closed on the requested day: shortfall equals min(MIN_BOOKING_HOURS, duration)."""
     monday_only = make_listing(
         availability=[{"weekday": 0, "start": "09:00", "end": "18:00"}]
@@ -156,14 +137,14 @@ def test_availability_closed_weekday_with_time_shortfalls_required_hours() -> No
     assert availability_shortfall(monday_only, SUNDAY, afternoon) == 2.0
 
 
-def test_location_same_area_and_unconstrained_are_zero() -> None:
+def test_location_same_area_and_unconstrained_are_zero(make_listing: Callable[..., Listing]) -> None:
     """Same area or no stated location: no location violation."""
     listing = make_listing(area="Bandra")
     assert check_listing(listing, ParsedQuery(location="Bandra")).location_km == 0.0
     assert check_listing(listing, ParsedQuery()).location_km == 0.0
 
 
-def test_location_other_area_costs_real_distance() -> None:
+def test_location_other_area_costs_real_distance(make_listing: Callable[..., Listing]) -> None:
     """A Bandra listing requested in Andheri is violated by the few km between them."""
     listing = make_listing(area="Bandra")
     other = check_listing(listing, ParsedQuery(location="Andheri"))
@@ -171,7 +152,7 @@ def test_location_other_area_costs_real_distance() -> None:
     assert not passes(other)
 
 
-def test_space_type_filtered_only_when_stated() -> None:
+def test_space_type_filtered_only_when_stated(make_listing: Callable[..., Listing]) -> None:
     """No stated space type means no check; a stated one filters exactly."""
     listing = make_listing(space_type="meeting_room")
     assert not check_listing(listing, ParsedQuery()).space_type_mismatch
@@ -183,7 +164,7 @@ def test_space_type_filtered_only_when_stated() -> None:
     ).space_type_mismatch
 
 
-def test_count_and_passes_agree_with_violation_sizes() -> None:
+def test_count_and_passes_agree_with_violation_sizes(make_listing: Callable[..., Listing]) -> None:
     """count() numbers the violated constraints; passes() is exactly count == 0."""
     listing = make_listing(capacity=4, price_per_hour=2400)
     bad = ParsedQuery(
