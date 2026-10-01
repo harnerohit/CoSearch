@@ -187,6 +187,7 @@ CoSearch/                      # parent folder = project root = project name
 │
 ├── tests/
 │   ├── conftest.py            # shared fixtures (sample listings, fake LLM)
+│   ├── test_schemas.py  # Step 2: valid and invalid Listing/ParsedQuery objects
 │   ├── test_filters.py
 │   ├── test_ranker.py
 │   ├── test_geo.py
@@ -453,7 +454,7 @@ Step 0 answers (Gate 0 approved): Python **3.12** (venv created explicitly with 
 
 - [x] Step 0 Preflight
 - [x] Step 1 Scaffold and environment
-- [ ] Step 2 config and schemas
+- [x] Step 2 config and schemas
 - [ ] Step 3 Synthetic data (Gate 3 human approval)
 - [ ] Step 4 loader, geo, filters
 - [ ] Step 5 ranker and facts
