@@ -10,12 +10,12 @@ CoSearch is an AI-powered natural-language search platform for a coworking marke
 ## Features
 - **Natural Language Parsing**: Understands intent, groups, times, budgets, locations, and soft preferences without complex form UI.
 - **Strict Hard Constraints**: Enforces budgets, availability, capacity, and location accurately via pure code, significantly reducing AI hallucination for critical facts.
-- **Smart Ranking & Fallback**: Ranks listings based on fit, trust, and price. Gracefully relaxes only the constraints permitted by the system rules to show the closest alternatives (ALTERNATIVES) if an exact match isn't found, while preserving hard constraints that must never be relaxed (including capacity and explicit space type), or prompts for clarification (CLARIFY).
+- **Smart Ranking & Fallback**: Ranks listings based on fit, trust, and price. Gracefully relaxes only the constraints permitted by the system rules to show the closest alternatives (`ALTERNATIVES`) if an exact match isn't found, while preserving hard constraints that must never be relaxed (including capacity and explicit space type), or prompts for clarification (`CLARIFY`).
 - **Grounded AI Explanations**: Generates natural-language trade-off explanations strictly validated against mathematical constraints.
 
 ## Architecture
 
-`	ext
+```text
 user query
    │
    ▼
@@ -35,7 +35,7 @@ user query
    │                  (retry once, then deterministic template fallback)
    ▼
 [app.py / ui/] Streamlit: parsed-request panel, result cards, numbered map
-`
+```
 
 ## Local Setup
 
@@ -44,55 +44,60 @@ Ensure you have Python 3.12 installed.
 
 ### 2. Installation
 Create a virtual environment and install dependencies:
-`ash
+```bash
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-`
+```
 
 ### 3. Environment Variables
-Create a .env file in the project root:
-`env
+Create a `.env` file in the project root:
+```env
 LLM_API_KEY=your_api_key_here
 LLM_BASE_URL=https://api.groq.com/openai/v1
 LLM_MODEL=openai/gpt-oss-20b
-`
+```
 
 ### 4. Running the Application
 Start the Streamlit UI:
-`ash
+```bash
 streamlit run app.py
-`
+```
 
 ## Testing and Evaluation
 
 **Run Pytests (120 tests):**
-`ash
+```bash
 python -m pytest
-`
+```
 
 **Run End-to-End Evaluation:**
-`ash
+```bash
 python eval/run_eval.py
-`
-This runs exactly 20 queries (12 normal, 8 messy/adversarial) against the real pipeline and generates an evaluation report in eval/results.md and eval/results.csv.
+```
+The curated 20-query evaluation produced:
+- 20/20 expected outcomes
+- 20/20 parse correctness
+- 0 hard-constraint violations among RESULTS
+- 0 fabrication failures
+This result applies to the evaluated query set only.
 
 ## Streamlit Community Cloud Deployment
 1. Push this repository to GitHub.
 2. Log into Streamlit Community Cloud and click "New app".
-3. Select this repository and branch. Set the main file path to pp.py.
+3. Select this repository and branch. Set the main file path to `app.py`.
 4. Before deploying, go to **Advanced Settings -> Secrets** and paste the production credentials:
-`	oml
+```toml
 LLM_API_KEY = "your_api_key_here"
 LLM_BASE_URL = "https://api.groq.com/openai/v1"
 LLM_MODEL = "openai/gpt-oss-20b"
-`
+```
 5. Click **Deploy**.
 
 ## Note on Synthetic Data
-All 40 listings provided in data/listings.json are entirely synthetic and generated for demonstration purposes. Location coordinates are strictly approximate representations of actual Mumbai areas (e.g. Bandra, BKC, Powai) generated around central coordinates.
+All 40 listings provided in `data/listings.json` are entirely synthetic and generated for demonstration purposes. Location coordinates are strictly approximate representations of actual Mumbai areas (e.g. Bandra, BKC, Powai) generated around central coordinates.
 
 ## Limitations
 - **Availability is Static:** The platform currently uses recurring weekly static schedules rather than live booking checks.
 - **Coverage:** Only 8 specific Mumbai areas are currently searchable.
-- **Strictly Data-Driven:** The system relies entirely on the provided vocabulary in src/config.py and does not guess unstructured features or invent listings outside of the JSON dataset.
+- **Strictly Data-Driven:** The system relies entirely on the provided vocabulary in `src/config.py` and does not guess unstructured features or invent listings outside of the JSON dataset.
