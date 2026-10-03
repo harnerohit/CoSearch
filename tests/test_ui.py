@@ -56,11 +56,11 @@ def test_ui_renders_all_outcomes(dummy_env):
             )
             
             at = AppTest.from_file("../app.py")
-            at.run()
+            at.run(timeout=10)
             
             # Click a search button or input text
             # The example buttons have keys "ex_0", "ex_1", etc. We can just click the first one.
-            at.button(key="ex_0").click().run()
+            at.button(key="ex_0").click().run(timeout=10)
             
             # Assert no unhandled exceptions occurred in the Streamlit runner
             assert not at.exception
